@@ -957,6 +957,17 @@
     </div>
 
    <script>
+
+       // Verificar se há respostas pendentes ao carregar a página
+window.addEventListener('load', () => {
+    const respostasPendentes = localStorage.getItem('respostas_pendentes');
+    if (respostasPendentes) {
+        if (confirm('Existem respostas não enviadas. Deseja tentar enviar agora?')) {
+            const data = JSON.parse(respostasPendentes);
+            sendToGoogleSheets(data);
+        }
+    }
+});
         // Preencher informações do aluno
         function fillStudentInfo() {
             const studentSelect = document.getElementById('student-name');
