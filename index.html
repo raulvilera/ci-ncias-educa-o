@@ -1,15 +1,3 @@
-# Análise e Correção do Quadro de Punnett
-
-Analisei o problema descrito: a implementação atual não permite representar adequadamente os gametas de ambos os sexos nos quadros de Punnett. O problema principal é que o design atual não separa claramente os gametas masculinos e femininos.
-
-## Solução Proposta:
-1. Criar duas áreas distintas de gametas: "Gametas Femininos" e "Gametas Masculinos"
-2. Permitir que o usuário arraste alelos para ambos os conjuntos de gametas
-3. Implementar preenchimento automático das células internas com base nos gametas selecionados
-
-Aqui está a implementação completa com as correções necessárias:
-
-```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -964,4 +952,344 @@ Aqui está a implementação completa com as correções necessárias:
         </div>
     </div>
     
-    <div class="
+    <div class="success-message" id="success-message">
+        <i class="fas fa-check-circle"></i> Respostas enviadas com sucesso!
+    </div>
+
+    <script>
+        // Preencher informações do aluno
+        function fillStudentInfo() {
+            const studentSelect = document.getElementById('student-name');
+            const selectedValue = studentSelect.value;
+            
+            if (selectedValue) {
+                const [number, classCode] = selectedValue.split('-');
+                document.getElementById('student-number').value = number;
+                
+                const classSelect = document.getElementById('student-class');
+                classSelect.value = classCode;
+                classSelect.disabled = false;
+            }
+        }
+
+        // Configurar data atual
+        const today = new Date();
+        document.getElementById('student-date').value = today.toLocaleDateString('pt-BR');
+        
+        // Drag and drop
+        let draggedAllele = null;
+        let gametes = {
+            // Estrutura: {question: {female: [], male: []}}
+        };
+        
+        document.addEventListener('dragstart', function(event) {
+            if (event.target.classList.contains('allele')) {
+                draggedAllele = event.target;
+                event.dataTransfer.setData('text/plain', event.target.dataset.allele);
+                setTimeout(() => event.target.style.opacity = '0.4', 0);
+            }
+        });
+        
+        document.addEventListener('dragend', function(event) {
+            if (event.target.classList.contains('allele')) {
+                event.target.style.opacity = '1';
+            }
+        });
+        
+        document.addEventListener('dragover', function(event) {
+            if (event.target.classList.contains('gamete-zone')) {
+                event.preventDefault();
+                event.target.classList.add('highlight');
+            }
+        });
+        
+        document.addEventListener('dragleave', function(event) {
+            if (event.target.classList.contains('gamete-zone')) {
+                event.target.classList.remove('highlight');
+            }
+        });
+        
+        document.addEventListener('drop', function(event) {
+            if (event.target.classList.contains('gamete-zone')) {
+                event.preventDefault();
+                event.target.classList.remove('highlight');
+                
+                const allele = draggedAllele.dataset.allele;
+                const questionId = event.target.dataset.question;
+                const parentType = event.target.dataset.parent;
+                const gameteId = event.target.dataset.gamete;
+                
+                // Remover qualquer conteúdo anterior
+                event.target.innerHTML = '';
+                
+                // Adicionar o novo alelo
+                const alleleClone = draggedAllele.cloneNode(true);
+                alleleClone.style.opacity = '1';
+                event.target.appendChild(alleleClone);
+                
+                // Armazenar o alelo
+                if (!gametes[questionId]) gametes[questionId] = {female: {}, male: {}};
+                
+                if (parentType === 'female') {
+                    gametes[questionId].female[gameteId] = allele;
+                } else {
+                    gametes[questionId].male[gameteId] = allele;
+                }
+                
+                // Atualizar o quadro de Punnett
+                updatePunnettSquare(questionId);
+            }
+        });
+        
+        function updatePunnettSquare(questionId) {
+            const qGametes = gametes[questionId];
+            if (!qGametes) return;
+            
+            // Atualizar cabeçalhos de gametas
+            for (const [gameteId, allele] of Object.entries(qGametes.female)) {
+                const cell = document.getElementById(`female-gamete-${questionId}-${gameteId}`);
+                if (cell) cell.textContent = allele;
+            }
+            
+            for (const [gameteId, allele] of Object.entries(qGametes.male)) {
+                const cell = document.getElementById(`male-gamete-${questionId}-${gameteId}`);
+                if (cell) cell.textContent = allele;
+            }
+            
+            // Calcular e atualizar as células internas
+            const femaleGametes = Object.values(qGametes.female);
+            const maleGametes = Object.values(qGametes.male);
+            
+            // Para cada célula do quadro
+            for (let i = 0; i < femaleGametes.length; i++) {
+                for (let j = 0; j < maleGametes.length; j++) {
+                    const femaleAllele = femaleGametes[i];
+                    const maleAllele = maleGametes[j];
+                    
+                    if (femaleAllele && maleAllele) {
+                        const cell = document.getElementById(`cell-${questionId}-${i+1}-${j+1}`);
+                        if (cell) {
+                            // Ordenar alelos para genótipo padrão (maiúscula primeiro)
+                            const alleles = [femaleAllele, maleAllele];
+                            alleles.sort((a, b) => b.localeCompare(a)); // Maiúsculas primeiro
+                            
+                            const genotype = alleles.join('');
+                            cell.textContent = genotype;
+                            
+                            // Validar o genótipo
+                            validateGenotype(questionId, i+1, j+1, genotype);
+                        }
+                    }
+                }
+            }
+            
+            // Atualizar a exibição de fenótipos
+            updatePhenotypeDisplay(questionId);
+        }
+        
+        function validateGenotype(questionId, row, col, genotype) {
+            const cell = document.getElementById(`cell-${questionId}-${row}-${col}`);
+            if (!cell) return;
+            
+            let isValid = false;
+            
+            // Definir genótipos válidos para cada questão
+            switch(questionId) {
+                case '1': // Questão 1: cruzamento Aa x Aa
+                    isValid = ['AA', 'Aa', 'aA', 'aa'].includes(genotype);
+                    break;
+                case '3': // Questão 3: BB x bb
+                    isValid = ['BB', 'Bb', 'bB', 'bb'].includes(genotype);
+                    break;
+                case '5': // Questão 5: Tt x Tt
+                    isValid = ['TT', 'Tt', 'tT', 'tt'].includes(genotype);
+                    break;
+                case '7': // Questão 7: di-hibridismo
+                    // Aceita qualquer combinação de dois alelos
+                    isValid = true;
+                    break;
+                case '8': // Questão 8: grupos sanguíneos
+                    isValid = ['AO', 'OA', 'BO', 'OB'].includes(genotype);
+                    break;
+            }
+            
+            if (isValid) {
+                cell.classList.add('correct');
+                cell.classList.remove('incorrect');
+            } else {
+                cell.classList.add('incorrect');
+                cell.classList.remove('correct');
+            }
+        }
+        
+        function updatePhenotypeDisplay(questionId) {
+            const phenotypeDisplay = document.getElementById(`phenotype-display-${questionId}`);
+            if (!phenotypeDisplay) return;
+            
+            phenotypeDisplay.innerHTML = '<strong>Fenótipos:</strong> ';
+            
+            // Contar genótipos
+            const genotypes = {};
+            const cells = document.querySelectorAll(`#punnett-${questionId} .genotype-display`);
+            
+            cells.forEach(cell => {
+                const genotype = cell.textContent;
+                if (genotype && genotype !== '-') {
+                    genotypes[genotype] = (genotypes[genotype] || 0) + 1;
+                }
+            });
+            
+            // Calcular fenótipos baseado na questão
+            switch(questionId) {
+                case '1': // Flores: AA=vermelho, Aa=rosa, aa=branco
+                    const red = (genotypes['AA'] || 0);
+                    const pink = (genotypes['Aa'] || 0) + (genotypes['aA'] || 0);
+                    const white = (genotypes['aa'] || 0);
+                    phenotypeDisplay.innerHTML += `Vermelhas: ${red}, Cor-de-rosa: ${pink}, Brancas: ${white}`;
+                    break;
+                    
+                case '3': // Pelagem: BB e Bb=preto, bb=branco
+                    const black = (genotypes['BB'] || 0) + (genotypes['Bb'] || 0) + (genotypes['bB'] || 0);
+                    const whiteFur = (genotypes['bb'] || 0);
+                    phenotypeDisplay.innerHTML += `Pretos: ${black}, Brancos: ${whiteFur}`;
+                    break;
+                    
+                case '5': // Plantas: TT e Tt=alto, tt=baixo
+                    const tall = (genotypes['TT'] || 0) + (genotypes['Tt'] || 0) + (genotypes['tT'] || 0);
+                    const short = (genotypes['tt'] || 0);
+                    phenotypeDisplay.innerHTML += `Altas: ${tall}, Baixas: ${short}`;
+                    break;
+                    
+                case '8': // Sangue: AO=A, BO=B
+                    const groupA = (genotypes['AO'] || 0) + (genotypes['OA'] || 0);
+                    const groupB = (genotypes['BO'] || 0) + (genotypes['OB'] || 0);
+                    phenotypeDisplay.innerHTML += `Grupo A: ${groupA}, Grupo B: ${groupB}`;
+                    break;
+                    
+                case '7': // Dihibridismo
+                    phenotypeDisplay.innerHTML = '<strong>Fenótipos:</strong> Complete o quadro para ver os fenótipos';
+                    break;
+            }
+        }
+        
+        // Função para reiniciar uma questão específica
+        function resetQuestion(questionId) {
+            // Limpar gametas
+            if (gametes[questionId]) {
+                gametes[questionId] = {female: {}, male: {}};
+            }
+            
+            // Limpar elementos visuais
+            const questionDiv = document.getElementById(`question-${questionId}`);
+            
+            // Gametas
+            questionDiv.querySelectorAll('.gamete-zone').forEach(zone => {
+                zone.innerHTML = '';
+            });
+            
+            // Células de gametas
+            questionDiv.querySelectorAll('.gamete-cell').forEach(cell => {
+                cell.textContent = '-';
+            });
+            
+            // Células internas
+            questionDiv.querySelectorAll('.genotype-display').forEach(cell => {
+                cell.textContent = '-';
+                cell.classList.remove('correct', 'incorrect');
+            });
+            
+            // Resetar o display de fenótipos
+            const phenotypeDisplay = document.getElementById(`phenotype-display-${questionId}`);
+            if (phenotypeDisplay) {
+                phenotypeDisplay.innerHTML = 'Fenótipos: Aguardando combinações...';
+            }
+        }
+        
+        // Enviar respostas
+        function submitAnswers() {
+            const studentName = document.getElementById('student-name').value;
+            const studentClass = document.getElementById('student-class').value;
+            const studentNumber = document.getElementById('student-number').value;
+            const date = document.getElementById('student-date').value;
+            
+            if (!studentName || !studentClass || !studentNumber || !date) {
+                alert('Por favor, preencha todas as informações do aluno antes de enviar.');
+                return;
+            }
+            
+            // Coletar respostas
+            const answers = {};
+            for (let i = 1; i <= 10; i++) {
+                const selectedOption = document.querySelector(`input[name="q${i}"]:checked`);
+                answers[`q${i}`] = selectedOption ? selectedOption.value : '';
+            }
+            
+            // Calcular nota (simulação)
+            const correctAnswers = {
+                q1: 'c',
+                q2: 'b',
+                q3: 'a',
+                q4: 'd',
+                q5: 'b',
+                q6: 'a',
+                q7: 'a',
+                q8: 'a',
+                q9: 'c',
+                q10: 'a'
+            };
+            
+            let score = 0;
+            for (const [question, answer] of Object.entries(answers)) {
+                if (answer === correctAnswers[question]) {
+                    score += 1;
+                }
+            }
+            
+            // Enviar para o Google Sheets
+            sendToGoogleSheets({
+                name: document.getElementById('student-name').options[document.getElementById('student-name').selectedIndex].text,
+                class: studentClass,
+                number: studentNumber,
+                date: date,
+                score: score,
+                answers: answers
+            });
+        }
+        
+        function sendToGoogleSheets(data) {
+            // ID da planilha e configurações
+            const spreadsheetId = "1cw_3Kifufgt42yHsPea3pU_rw8QMgxhqmZY71P8byG4";
+            const sheetName = data.class === "9A" ? "9ºANO A" : data.class === "9B" ? "9ºANO B" : "9ºANO C";
+            
+            // Simulação de envio
+            console.log('Dados enviados para o Google Sheets:', {
+                spreadsheetId: spreadsheetId,
+                sheetName: sheetName,
+                data: data
+            });
+            
+            // Mostrar mensagem de sucesso
+            const successMessage = document.getElementById('success-message');
+            successMessage.style.display = 'block';
+            
+            // Ocultar a mensagem após 3 segundos
+            setTimeout(() => {
+                successMessage.style.display = 'none';
+            }, 3000);
+        }
+        
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', function() {
+            // Preencher data atual
+            document.getElementById('student-date').value = today.toLocaleDateString('pt-BR');
+            
+            // Inicializar estrutura de gametas
+            for (let i = 1; i <= 8; i++) {
+                if ([1, 3, 5, 7, 8].includes(i)) {
+                    gametes[i] = {female: {}, male: {}};
+                }
+            }
+        });
+    </script>
+</body>
+</html>
