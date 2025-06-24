@@ -187,6 +187,48 @@
             transform: scale(1.1);
         }
         
+        .gametes-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            gap: 20px;
+        }
+        
+        .gametes-section {
+            flex: 1;
+            padding: 15px;
+            background-color: #e3f2fd;
+            border-radius: 8px;
+            min-height: 100px;
+        }
+        
+        .gametes-section h4 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #1a2a6c;
+        }
+        
+        .gamete-parent {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        
+        .gamete-cell {
+            min-width: 40px;
+            min-height: 40px;
+            background-color: #d0e0f0;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
         .punnett-square {
             margin: 20px auto;
             border-collapse: collapse;
@@ -364,6 +406,10 @@
             .activity-title {
                 font-size: 1.6rem;
             }
+            
+            .gametes-container {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -498,8 +544,8 @@
         
         <div class="instructions">
             <h3><i class="fas fa-info-circle"></i> Instruções:</h3>
-            <p>Para cada questão, arraste os alelos para os quadros de Punnett para formar os genótipos. As células ficarão azuis para combinações corretas e vermelhas para incorretas. Após completar o quadro, marque a alternativa correta com base nos fenótipos resultantes.</p>
-            <p><strong>Novo:</strong> Agora você pode remover alelos do quadro arrastando-os de volta para a área de pool!</p>
+            <p>Para cada questão, arraste os alelos para os gametas femininos e masculinos para formar os genótipos. As células ficarão verdes para combinações corretas e vermelhas para incorretas. Após completar o quadro, marque a alternativa correta com base nos fenótipos resultantes.</p>
+            <p><strong>Novo:</strong> Agora você pode arrastar alelos para ambos os gametas (feminino e masculino) para formar o quadro de Punnett completo!</p>
         </div>
         
         <div class="questions-container">
@@ -512,21 +558,40 @@
                         <div class="allele" draggable="true" data-allele="A">A</div>
                         <div class="allele" draggable="true" data-allele="a">a</div>
                     </div>
-                    <table class="punnett-square">
+                    
+                    <div class="gametes-container">
+                        <div class="gametes-section">
+                            <h4><i class="fas fa-venus"></i> Gametas Femininos</h4>
+                            <div class="gamete-parent">
+                                <div class="drop-zone gamete-zone" data-parent="female" data-gamete="1" data-question="1"></div>
+                                <div class="drop-zone gamete-zone" data-parent="female" data-gamete="2" data-question="1"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="gametes-section">
+                            <h4><i class="fas fa-mars"></i> Gametas Masculinos</h4>
+                            <div class="gamete-parent">
+                                <div class="drop-zone gamete-zone" data-parent="male" data-gamete="1" data-question="1"></div>
+                                <div class="drop-zone gamete-zone" data-parent="male" data-gamete="2" data-question="1"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <table class="punnett-square" id="punnett-1">
                         <tr>
                             <th></th>
-                            <th><div class="drop-zone" data-gamete="col" id="gamete-col-1"></div></th>
-                            <th><div class="drop-zone" data-gamete="col" id="gamete-col-2"></div></th>
+                            <th><div class="gamete-cell" id="male-gamete-1-1">-</div></th>
+                            <th><div class="gamete-cell" id="male-gamete-1-2">-</div></th>
                         </tr>
                         <tr>
-                            <th><div class="drop-zone" data-gamete="row" id="gamete-row-1"></div></th>
-                            <td><div class="drop-zone" data-cell="1-1"></div></td>
-                            <td><div class="drop-zone" data-cell="1-2"></div></td>
+                            <th><div class="gamete-cell" id="female-gamete-1-1">-</div></th>
+                            <td><div class="genotype-display" id="cell-1-1-1">-</div></td>
+                            <td><div class="genotype-display" id="cell-1-1-2">-</div></td>
                         </tr>
                         <tr>
-                            <th><div class="drop-zone" data-gamete="row" id="gamete-row-2"></div></th>
-                            <td><div class="drop-zone" data-cell="2-1"></div></td>
-                            <td><div class="drop-zone" data-cell="2-2"></div></td>
+                            <th><div class="gamete-cell" id="female-gamete-1-2">-</div></th>
+                            <td><div class="genotype-display" id="cell-1-2-1">-</div></td>
+                            <td><div class="genotype-display" id="cell-1-2-2">-</div></td>
                         </tr>
                     </table>
                     <button class="reset-btn" onclick="resetQuestion(1)"><i class="fas fa-redo"></i> Reiniciar Quadro</button>
@@ -568,21 +633,40 @@
                         <div class="allele" draggable="true" data-allele="B">B</div>
                         <div class="allele" draggable="true" data-allele="b">b</div>
                     </div>
-                    <table class="punnett-square">
+                    
+                    <div class="gametes-container">
+                        <div class="gametes-section">
+                            <h4><i class="fas fa-venus"></i> Gametas Femininos</h4>
+                            <div class="gamete-parent">
+                                <div class="drop-zone gamete-zone" data-parent="female" data-gamete="1" data-question="3"></div>
+                                <div class="drop-zone gamete-zone" data-parent="female" data-gamete="2" data-question="3"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="gametes-section">
+                            <h4><i class="fas fa-mars"></i> Gametas Masculinos</h4>
+                            <div class="gamete-parent">
+                                <div class="drop-zone gamete-zone" data-parent="male" data-gamete="1" data-question="3"></div>
+                                <div class="drop-zone gamete-zone" data-parent="male" data-gamete="2" data-question="3"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <table class="punnett-square" id="punnett-3">
                         <tr>
                             <th></th>
-                            <th><div class="drop-zone" data-gamete="col" id="gamete-col-3"></div></th>
-                            <th><div class="drop-zone" data-gamete="col" id="gamete-col-4"></div></th>
+                            <th><div class="gamete-cell" id="male-gamete-3-1">-</div></th>
+                            <th><div class="gamete-cell" id="male-gamete-3-2">-</div></th>
                         </tr>
                         <tr>
-                            <th><div class="drop-zone" data-gamete="row" id="gamete-row-3"></div></th>
-                            <td><div class="drop-zone" data-cell="3-1"></div></td>
-                            <td><div class="drop-zone" data-cell="3-2"></div></td>
+                            <th><div class="gamete-cell" id="female-gamete-3-1">-</div></th>
+                            <td><div class="genotype-display" id="cell-3-1-1">-</div></td>
+                            <td><div class="genotype-display" id="cell-3-1-2">-</div></td>
                         </tr>
                         <tr>
-                            <th><div class="drop-zone" data-gamete="row" id="gamete-row-4"></div></th>
-                            <td><div class="drop-zone" data-cell="4-1"></div></td>
-                            <td><div class="drop-zone" data-cell="4-2"></div></td>
+                            <th><div class="gamete-cell" id="female-gamete-3-2">-</div></th>
+                            <td><div class="genotype-display" id="cell-3-2-1">-</div></td>
+                            <td><div class="genotype-display" id="cell-3-2-2">-</div></td>
                         </tr>
                     </table>
                     <button class="reset-btn" onclick="resetQuestion(3)"><i class="fas fa-redo"></i> Reiniciar Quadro</button>
@@ -624,21 +708,40 @@
                         <div class="allele" draggable="true" data-allele="T">T</div>
                         <div class="allele" draggable="true" data-allele="t">t</div>
                     </div>
-                    <table class="punnett-square">
+                    
+                    <div class="gametes-container">
+                        <div class="gametes-section">
+                            <h4><i class="fas fa-venus"></i> Gametas Femininos</h4>
+                            <div class="gamete-parent">
+                                <div class="drop-zone gamete-zone" data-parent="female" data-gamete="1" data-question="5"></div>
+                                <div class="drop-zone gamete-zone" data-parent="female" data-gamete="2" data-question="5"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="gametes-section">
+                            <h4><i class="fas fa-mars"></i> Gametas Masculinos</h4>
+                            <div class="gamete-parent">
+                                <div class="drop-zone gamete-zone" data-parent="male" data-gamete="1" data-question="5"></div>
+                                <div class="drop-zone gamete-zone" data-parent="male" data-gamete="2" data-question="5"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <table class="punnett-square" id="punnett-5">
                         <tr>
                             <th></th>
-                            <th><div class="drop-zone" data-gamete="col" id="gamete-col-5"></div></th>
-                            <th><div class="drop-zone" data-gamete="col" id="gamete-col-6"></div></th>
+                            <th><div class="gamete-cell" id="male-gamete-5-1">-</div></th>
+                            <th><div class="gamete-cell" id="male-gamete-5-2">-</div></th>
                         </tr>
                         <tr>
-                            <th><div class="drop-zone" data-gamete="row" id="gamete-row-5"></div></th>
-                            <td><div class="drop-zone" data-cell="5-1"></div></td>
-                            <td><div class="drop-zone" data-cell="5-2"></div></td>
+                            <th><div class="gamete-cell" id="female-gamete-5-1">-</div></th>
+                            <td><div class="genotype-display" id="cell-5-1-1">-</div></td>
+                            <td><div class="genotype-display" id="cell-5-1-2">-</div></td>
                         </tr>
                         <tr>
-                            <th><div class="drop-zone" data-gamete="row" id="gamete-row-6"></div></th>
-                            <td><div class="drop-zone" data-cell="6-1"></div></td>
-                            <td><div class="drop-zone" data-cell="6-2"></div></td>
+                            <th><div class="gamete-cell" id="female-gamete-5-2">-</div></th>
+                            <td><div class="genotype-display" id="cell-5-2-1">-</div></td>
+                            <td><div class="genotype-display" id="cell-5-2-2">-</div></td>
                         </tr>
                     </table>
                     <button class="reset-btn" onclick="resetQuestion(5)"><i class="fas fa-redo"></i> Reiniciar Quadro</button>
@@ -679,41 +782,64 @@
                         <div class="allele" draggable="true" data-allele="B">B</div>
                         <div class="allele" draggable="true" data-allele="b">b</div>
                     </div>
-                    <table class="punnett-square">
+                    
+                    <div class="gametes-container">
+                        <div class="gametes-section">
+                            <h4><i class="fas fa-venus"></i> Gametas Femininos</h4>
+                            <div class="gamete-parent">
+                                <div class="drop-zone gamete-zone" data-parent="female" data-gamete="1" data-question="7"></div>
+                                <div class="drop-zone gamete-zone" data-parent="female" data-gamete="2" data-question="7"></div>
+                                <div class="drop-zone gamete-zone" data-parent="female" data-gamete="3" data-question="7"></div>
+                                <div class="drop-zone gamete-zone" data-parent="female" data-gamete="4" data-question="7"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="gametes-section">
+                            <h4><i class="fas fa-mars"></i> Gametas Masculinos</h4>
+                            <div class="gamete-parent">
+                                <div class="drop-zone gamete-zone" data-parent="male" data-gamete="1" data-question="7"></div>
+                                <div class="drop-zone gamete-zone" data-parent="male" data-gamete="2" data-question="7"></div>
+                                <div class="drop-zone gamete-zone" data-parent="male" data-gamete="3" data-question="7"></div>
+                                <div class="drop-zone gamete-zone" data-parent="male" data-gamete="4" data-question="7"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <table class="punnett-square" id="punnett-7">
                         <tr>
                             <th></th>
-                            <th><div class="drop-zone" data-gamete="col" id="gamete-col-7"></div></th>
-                            <th><div class="drop-zone" data-gamete="col" id="gamete-col-8"></div></th>
-                            <th><div class="drop-zone" data-gamete="col" id="gamete-col-9"></div></th>
-                            <th><div class="drop-zone" data-gamete="col" id="gamete-col-10"></div></th>
+                            <th><div class="gamete-cell" id="male-gamete-7-1">-</div></th>
+                            <th><div class="gamete-cell" id="male-gamete-7-2">-</div></th>
+                            <th><div class="gamete-cell" id="male-gamete-7-3">-</div></th>
+                            <th><div class="gamete-cell" id="male-gamete-7-4">-</div></th>
                         </tr>
                         <tr>
-                            <th><div class="drop-zone" data-gamete="row" id="gamete-row-7"></div></th>
-                            <td><div class="drop-zone" data-cell="7-1"></div></td>
-                            <td><div class="drop-zone" data-cell="7-2"></div></td>
-                            <td><div class="drop-zone" data-cell="7-3"></div></td>
-                            <td><div class="drop-zone" data-cell="7-4"></div></td>
+                            <th><div class="gamete-cell" id="female-gamete-7-1">-</div></th>
+                            <td><div class="genotype-display" id="cell-7-1-1">-</div></td>
+                            <td><div class="genotype-display" id="cell-7-1-2">-</div></td>
+                            <td><div class="genotype-display" id="cell-7-1-3">-</div></td>
+                            <td><div class="genotype-display" id="cell-7-1-4">-</div></td>
                         </tr>
                         <tr>
-                            <th><div class="drop-zone" data-gamete="row" id="gamete-row-8"></div></th>
-                            <td><div class="drop-zone" data-cell="8-1"></div></td>
-                            <td><div class="drop-zone" data-cell="8-2"></div></td>
-                            <td><div class="drop-zone" data-cell="8-3"></div></td>
-                            <td><div class="drop-zone" data-cell="8-4"></div></td>
+                            <th><div class="gamete-cell" id="female-gamete-7-2">-</div></th>
+                            <td><div class="genotype-display" id="cell-7-2-1">-</div></td>
+                            <td><div class="genotype-display" id="cell-7-2-2">-</div></td>
+                            <td><div class="genotype-display" id="cell-7-2-3">-</div></td>
+                            <td><div class="genotype-display" id="cell-7-2-4">-</div></td>
                         </tr>
                         <tr>
-                            <th><div class="drop-zone" data-gamete="row" id="gamete-row-9"></div></th>
-                            <td><div class="drop-zone" data-cell="9-1"></div></td>
-                            <td><div class="drop-zone" data-cell="9-2"></div></td>
-                            <td><div class="drop-zone" data-cell="9-3"></div></td>
-                            <td><div class="drop-zone" data-cell="9-4"></div></td>
+                            <th><div class="gamete-cell" id="female-gamete-7-3">-</div></th>
+                            <td><div class="genotype-display" id="cell-7-3-1">-</div></td>
+                            <td><div class="genotype-display" id="cell-7-3-2">-</div></td>
+                            <td><div class="genotype-display" id="cell-7-3-3">-</div></td>
+                            <td><div class="genotype-display" id="cell-7-3-4">-</div></td>
                         </tr>
                         <tr>
-                            <th><div class="drop-zone" data-gamete="row" id="gamete-row-10"></div></th>
-                            <td><div class="drop-zone" data-cell="10-1"></div></td>
-                            <td><div class="drop-zone" data-cell="10-2"></div></td>
-                            <td><div class="drop-zone" data-cell="10-3"></div></td>
-                            <td><div class="drop-zone" data-cell="10-4"></div></td>
+                            <th><div class="gamete-cell" id="female-gamete-7-4">-</div></th>
+                            <td><div class="genotype-display" id="cell-7-4-1">-</div></td>
+                            <td><div class="genotype-display" id="cell-7-4-2">-</div></td>
+                            <td><div class="genotype-display" id="cell-7-4-3">-</div></td>
+                            <td><div class="genotype-display" id="cell-7-4-4">-</div></td>
                         </tr>
                     </table>
                     <button class="reset-btn" onclick="resetQuestion(7)"><i class="fas fa-redo"></i> Reiniciar Quadro</button>
@@ -738,21 +864,40 @@
                         <div class="allele" draggable="true" data-allele="B">B</div>
                         <div class="allele" draggable="true" data-allele="O">O</div>
                     </div>
-                    <table class="punnett-square">
+                    
+                    <div class="gametes-container">
+                        <div class="gametes-section">
+                            <h4><i class="fas fa-venus"></i> Gametas Femininos</h4>
+                            <div class="gamete-parent">
+                                <div class="drop-zone gamete-zone" data-parent="female" data-gamete="1" data-question="8"></div>
+                                <div class="drop-zone gamete-zone" data-parent="female" data-gamete="2" data-question="8"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="gametes-section">
+                            <h4><i class="fas fa-mars"></i> Gametas Masculinos</h4>
+                            <div class="gamete-parent">
+                                <div class="drop-zone gamete-zone" data-parent="male" data-gamete="1" data-question="8"></div>
+                                <div class="drop-zone gamete-zone" data-parent="male" data-gamete="2" data-question="8"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <table class="punnett-square" id="punnett-8">
                         <tr>
                             <th></th>
-                            <th><div class="drop-zone" data-gamete="col" id="gamete-col-8-1"></div></th>
-                            <th><div class="drop-zone" data-gamete="col" id="gamete-col-8-2"></div></th>
+                            <th><div class="gamete-cell" id="male-gamete-8-1">-</div></th>
+                            <th><div class="gamete-cell" id="male-gamete-8-2">-</div></th>
                         </tr>
                         <tr>
-                            <th><div class="drop-zone" data-gamete="row" id="gamete-row-8-1"></div></th>
-                            <td><div class="drop-zone" data-cell="8-1"></div></td>
-                            <td><div class="drop-zone" data-cell="8-2"></div></td>
+                            <th><div class="gamete-cell" id="female-gamete-8-1">-</div></th>
+                            <td><div class="genotype-display" id="cell-8-1-1">-</div></td>
+                            <td><div class="genotype-display" id="cell-8-1-2">-</div></td>
                         </tr>
                         <tr>
-                            <th><div class="drop-zone" data-gamete="row" id="gamete-row-8-2"></div></th>
-                            <td><div class="drop-zone" data-cell="8-3"></div></td>
-                            <td><div class="drop-zone" data-cell="8-4"></div></td>
+                            <th><div class="gamete-cell" id="female-gamete-8-2">-</div></th>
+                            <td><div class="genotype-display" id="cell-8-2-1">-</div></td>
+                            <td><div class="genotype-display" id="cell-8-2-2">-</div></td>
                         </tr>
                     </table>
                     <button class="reset-btn" onclick="resetQuestion(8)"><i class="fas fa-redo"></i> Reiniciar Quadro</button>
@@ -762,7 +907,7 @@
                 <div class="options">
                     <label><input type="radio" name="q8" value="a"> a) A ou B</label>
                     <label><input type="radio" name="q8" value="b"> b) AB ou O</label>
-                    <label><input type="radio" name="q8" value="c"> c) A, B ou O</label>
+                    <label><input type="radio" name="q8" valud="c"> c) A, B ou O</label>
                     <label><input type="radio" name="q8" value="d"> d) A ou B, mas não AB ou O</label>
                 </div>
             </div>
@@ -833,6 +978,9 @@
         
         // Drag and drop
         let draggedAllele = null;
+        let gametes = {
+            // Estrutura: {question: {female: [], male: []}}
+        };
         
         document.addEventListener('dragstart', function(event) {
             if (event.target.classList.contains('allele')) {
@@ -849,98 +997,129 @@
         });
         
         document.addEventListener('dragover', function(event) {
-            if (event.target.classList.contains('drop-zone') || event.target.classList.contains('allele-pool')) {
+            if (event.target.classList.contains('gamete-zone')) {
                 event.preventDefault();
-                if (event.target.classList.contains('drop-zone')) {
-                    event.target.classList.add('highlight');
-                }
+                event.target.classList.add('highlight');
             }
         });
         
         document.addEventListener('dragleave', function(event) {
-            if (event.target.classList.contains('drop-zone')) {
+            if (event.target.classList.contains('gamete-zone')) {
                 event.target.classList.remove('highlight');
             }
         });
         
         document.addEventListener('drop', function(event) {
-            // Permitir soltar na área de pool ou em drop-zones
-            if (event.target.classList.contains('drop-zone') || event.target.classList.contains('allele-pool')) {
+            if (event.target.classList.contains('gamete-zone')) {
                 event.preventDefault();
+                event.target.classList.remove('highlight');
                 
-                if (event.target.classList.contains('drop-zone')) {
-                    event.target.classList.remove('highlight');
+                const allele = draggedAllele.dataset.allele;
+                const questionId = event.target.dataset.question;
+                const parentType = event.target.dataset.parent;
+                const gameteId = event.target.dataset.gamete;
+                
+                // Remover qualquer conteúdo anterior
+                event.target.innerHTML = '';
+                
+                // Adicionar o novo alelo
+                const alleleClone = draggedAllele.cloneNode(true);
+                alleleClone.style.opacity = '1';
+                event.target.appendChild(alleleClone);
+                
+                // Armazenar o alelo
+                if (!gametes[questionId]) gametes[questionId] = {female: {}, male: {}};
+                
+                if (parentType === 'female') {
+                    gametes[questionId].female[gameteId] = allele;
+                } else {
+                    gametes[questionId].male[gameteId] = allele;
                 }
                 
-                const allele = event.dataTransfer.getData('text/plain');
-                
-                if (draggedAllele) {
-                    // Se soltando na área de pool, apenas anexar o alelo
-                    if (event.target.classList.contains('allele-pool')) {
-                        event.target.appendChild(draggedAllele);
-                    } 
-                    // Se soltando em uma célula ou gameta
-                    else if (event.target.classList.contains('drop-zone')) {
-                        // Se é uma célula de genótipo: pode ter dois alelos
-                        if (event.target.dataset.cell) {
-                            // Se já tem um alelo, formar genótipo
-                            if (event.target.children.length > 0) {
-                                const existingAllele = event.target.querySelector('.allele').dataset.allele;
-                                const newGenotype = existingAllele + allele;
-                                event.target.innerHTML = `<div class="genotype-display">${newGenotype}</div>`;
-                                
-                                // Validar o genótipo
-                                validateGenotype(event.target, newGenotype);
-                            } 
-                            // Se está vazio, apenas adicionar o alelo
-                            else {
-                                event.target.appendChild(draggedAllele);
-                            }
-                        } 
-                        // Se é um gameta, substituir qualquer conteúdo existente
-                        else {
-                            event.target.innerHTML = '';
-                            event.target.appendChild(draggedAllele);
+                // Atualizar o quadro de Punnett
+                updatePunnettSquare(questionId);
+            }
+        });
+        
+        function updatePunnettSquare(questionId) {
+            const qGametes = gametes[questionId];
+            if (!qGametes) return;
+            
+            // Atualizar cabeçalhos de gametas
+            for (const [gameteId, allele] of Object.entries(qGametes.female)) {
+                const cell = document.getElementById(`female-gamete-${questionId}-${gameteId}`);
+                if (cell) cell.textContent = allele;
+            }
+            
+            for (const [gameteId, allele] of Object.entries(qGametes.male)) {
+                const cell = document.getElementById(`male-gamete-${questionId}-${gameteId}`);
+                if (cell) cell.textContent = allele;
+            }
+            
+            // Calcular e atualizar as células internas
+            const femaleGametes = Object.values(qGametes.female);
+            const maleGametes = Object.values(qGametes.male);
+            
+            // Para cada célula do quadro
+            for (let i = 0; i < femaleGametes.length; i++) {
+                for (let j = 0; j < maleGametes.length; j++) {
+                    const femaleAllele = femaleGametes[i];
+                    const maleAllele = maleGametes[j];
+                    
+                    if (femaleAllele && maleAllele) {
+                        const cell = document.getElementById(`cell-${questionId}-${i+1}-${j+1}`);
+                        if (cell) {
+                            // Ordenar alelos para genótipo padrão (maiúscula primeiro)
+                            const alleles = [femaleAllele, maleAllele];
+                            alleles.sort((a, b) => b.localeCompare(a)); // Maiúsculas primeiro
+                            
+                            const genotype = alleles.join('');
+                            cell.textContent = genotype;
+                            
+                            // Validar o genótipo
+                            validateGenotype(questionId, i+1, j+1, genotype);
                         }
                     }
                 }
             }
-        });
+            
+            // Atualizar a exibição de fenótipos
+            updatePhenotypeDisplay(questionId);
+        }
         
-        function validateGenotype(cell, genotype) {
-            // Determinar qual questão estamos validando
-            const questionId = cell.closest('.question').id.split('-')[1];
-            let validGenotypes = [];
+        function validateGenotype(questionId, row, col, genotype) {
+            const cell = document.getElementById(`cell-${questionId}-${row}-${col}`);
+            if (!cell) return;
+            
+            let isValid = false;
             
             // Definir genótipos válidos para cada questão
             switch(questionId) {
                 case '1': // Questão 1: cruzamento Aa x Aa
-                    validGenotypes = ['AA', 'Aa', 'aA', 'aa'];
+                    isValid = ['AA', 'Aa', 'aA', 'aa'].includes(genotype);
                     break;
                 case '3': // Questão 3: BB x bb
-                    validGenotypes = ['BB', 'Bb', 'bB', 'bb'];
+                    isValid = ['BB', 'Bb', 'bB', 'bb'].includes(genotype);
                     break;
                 case '5': // Questão 5: Tt x Tt
-                    validGenotypes = ['TT', 'Tt', 'tT', 'tt'];
+                    isValid = ['TT', 'Tt', 'tT', 'tt'].includes(genotype);
                     break;
                 case '7': // Questão 7: di-hibridismo
                     // Aceita qualquer combinação de dois alelos
-                    return; // Não validar para questão complexa
+                    isValid = true;
+                    break;
                 case '8': // Questão 8: grupos sanguíneos
-                    validGenotypes = ['AO', 'OA', 'BO', 'OB'];
+                    isValid = ['AO', 'OA', 'BO', 'OB'].includes(genotype);
                     break;
             }
             
-            if (validGenotypes.includes(genotype)) {
+            if (isValid) {
                 cell.classList.add('correct');
                 cell.classList.remove('incorrect');
             } else {
                 cell.classList.add('incorrect');
                 cell.classList.remove('correct');
             }
-            
-            // Atualizar a exibição de fenótipos
-            updatePhenotypeDisplay(questionId);
         }
         
         function updatePhenotypeDisplay(questionId) {
@@ -951,11 +1130,11 @@
             
             // Contar genótipos
             const genotypes = {};
+            const cells = document.querySelectorAll(`#punnett-${questionId} .genotype-display`);
             
-            document.querySelectorAll(`#question-${questionId} [data-cell]`).forEach(cell => {
-                const genotypeDiv = cell.querySelector('.genotype-display');
-                if (genotypeDiv) {
-                    const genotype = genotypeDiv.textContent;
+            cells.forEach(cell => {
+                const genotype = cell.textContent;
+                if (genotype && genotype !== '-') {
                     genotypes[genotype] = (genotypes[genotype] || 0) + 1;
                 }
             });
@@ -986,24 +1165,37 @@
                     const groupB = (genotypes['BO'] || 0) + (genotypes['OB'] || 0);
                     phenotypeDisplay.innerHTML += `Grupo A: ${groupA}, Grupo B: ${groupB}`;
                     break;
+                    
+                case '7': // Dihibridismo
+                    phenotypeDisplay.innerHTML = '<strong>Fenótipos:</strong> Complete o quadro para ver os fenótipos';
+                    break;
             }
         }
         
         // Função para reiniciar uma questão específica
         function resetQuestion(questionId) {
-            const pool = document.getElementById(`pool-${questionId}`);
+            // Limpar gametas
+            if (gametes[questionId]) {
+                gametes[questionId] = {female: {}, male: {}};
+            }
+            
+            // Limpar elementos visuais
             const questionDiv = document.getElementById(`question-${questionId}`);
             
-            // Remover todos os alelos das células e gametas
-            questionDiv.querySelectorAll('.drop-zone').forEach(zone => {
+            // Gametas
+            questionDiv.querySelectorAll('.gamete-zone').forEach(zone => {
                 zone.innerHTML = '';
-                zone.classList.remove('correct', 'incorrect');
             });
             
-            // Recolocar todos os alelos no pool
-            const alleles = questionDiv.querySelectorAll('.allele');
-            alleles.forEach(allele => {
-                pool.appendChild(allele);
+            // Células de gametas
+            questionDiv.querySelectorAll('.gamete-cell').forEach(cell => {
+                cell.textContent = '-';
+            });
+            
+            // Células internas
+            questionDiv.querySelectorAll('.genotype-display').forEach(cell => {
+                cell.textContent = '-';
+                cell.classList.remove('correct', 'incorrect');
             });
             
             // Resetar o display de fenótipos
@@ -1090,6 +1282,13 @@
         document.addEventListener('DOMContentLoaded', function() {
             // Preencher data atual
             document.getElementById('student-date').value = today.toLocaleDateString('pt-BR');
+            
+            // Inicializar estrutura de gametas
+            for (let i = 1; i <= 8; i++) {
+                if ([1, 3, 5, 7, 8].includes(i)) {
+                    gametes[i] = {female: {}, male: {}};
+                }
+            }
         });
     </script>
 </body>
