@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Atividade de Ciências - Leis de Mendel e Heredogramas</title>
+    <title>Atividade de Ciências - Leis de Mendel</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -14,7 +14,7 @@
         }
         
         body {
-            background: linear-gradient(135deg, #1e5799, #207cca, #2989d8);
+            background: linear-gradient(135deg, #1a2a6c, #2c3e50, #4a6491);
             color: #333;
             line-height: 1.6;
             padding: 20px;
@@ -26,23 +26,25 @@
             margin: 0 auto;
             background-color: white;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
             overflow: hidden;
         }
         
         .header {
             background: linear-gradient(to right, #2c3e50, #4a6491);
             color: white;
-            padding: 20px;
+            padding: 25px;
             text-align: center;
             position: relative;
+            border-bottom: 5px solid #1a2a6c;
         }
         
         .school-name {
-            font-size: 1.8rem;
+            font-size: 2.1rem;
             font-weight: bold;
             margin-bottom: 15px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            letter-spacing: 1px;
         }
         
         .student-info {
@@ -50,10 +52,11 @@
             flex-wrap: wrap;
             justify-content: space-between;
             background: rgba(255, 255, 255, 0.2);
-            padding: 15px;
-            border-radius: 10px;
+            padding: 20px;
+            border-radius: 15px;
             margin-top: 15px;
-            gap: 15px;
+            gap: 20px;
+            backdrop-filter: blur(5px);
         }
         
         .info-item {
@@ -63,46 +66,62 @@
         
         .info-item label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             font-weight: bold;
-            font-size: 0.9rem;
+            font-size: 1rem;
             color: #e0e0e0;
         }
         
         select, input {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             border: 1px solid #ddd;
-            border-radius: 5px;
+            border-radius: 8px;
             background-color: white;
+            font-size: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+        
+        select:focus, input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3);
         }
         
         .activity-title {
             text-align: center;
             font-weight: bold;
-            font-size: 2rem;
-            margin: 25px 0;
+            font-size: 2.3rem;
+            margin: 30px 0 20px;
             color: #2c3e50;
-            padding: 10px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+            padding: 15px;
             background: linear-gradient(to right, #e0e0e0, #f5f5f5);
-            border-radius: 5px;
-            margin: 25px 20px;
+            border-radius: 10px;
+            margin: 30px 20px 20px;
         }
         
         .instructions {
             background-color: #e3f2fd;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 0 20px 25px;
-            border-left: 5px solid #2196f3;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 0 20px 30px;
+            border-left: 6px solid #2196f3;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         }
         
         .instructions h3 {
             color: #1a2a6c;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+        
+        .instructions p {
+            font-size: 1.1rem;
+            line-height: 1.8;
         }
         
         .questions-container {
@@ -111,10 +130,10 @@
         
         .question {
             background-color: white;
-            padding: 20px;
-            margin-bottom: 25px;
-            border-radius: 10px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            padding: 25px;
+            margin-bottom: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
             border: 1px solid #e0e0e0;
             position: relative;
             overflow: hidden;
@@ -133,42 +152,45 @@
         .question-number {
             font-weight: bold;
             color: #2c3e50;
-            font-size: 1.2rem;
-            margin-bottom: 15px;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
+            padding-left: 10px;
         }
         
         .question-number::before {
             content: "•";
             color: #4a6491;
-            font-size: 2rem;
-            margin-right: 10px;
+            font-size: 2.5rem;
+            margin-right: 15px;
         }
         
         .punnett-interactive {
-            margin: 20px 0;
-            padding: 15px;
+            margin: 25px 0;
+            padding: 20px;
             background-color: #f9f9f9;
-            border-radius: 10px;
-            border: 1px dashed #4a6491;
+            border-radius: 15px;
+            border: 2px dashed #4a6491;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
         }
         
         .allele-pool {
             display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
+            gap: 15px;
+            margin-bottom: 25px;
             justify-content: center;
             flex-wrap: wrap;
-            min-height: 50px;
-            padding: 10px;
-            background-color: #e3f2fd;
-            border-radius: 8px;
         }
         
         .allele {
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             background-color: #4a6491;
             color: white;
             display: flex;
@@ -178,8 +200,9 @@
             cursor: grab;
             user-select: none;
             font-weight: bold;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            transition: transform 0.2s;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: all 0.3s;
         }
         
         .allele:active {
@@ -187,60 +210,20 @@
             transform: scale(1.1);
         }
         
-        .gametes-container {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            gap: 20px;
-        }
-        
-        .gametes-section {
-            flex: 1;
-            padding: 15px;
-            background-color: #e3f2fd;
-            border-radius: 8px;
-            min-height: 100px;
-        }
-        
-        .gametes-section h4 {
-            text-align: center;
-            margin-bottom: 10px;
-            color: #1a2a6c;
-        }
-        
-        .gamete-parent {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-            margin-top: 10px;
-        }
-        
-        .gamete-cell {
-            min-width: 40px;
-            min-height: 40px;
-            background-color: #d0e0f0;
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 5px;
-            text-align: center;
-            font-weight: bold;
-        }
-        
         .punnett-square {
-            margin: 20px auto;
+            margin: 25px auto;
             border-collapse: collapse;
             text-align: center;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
         
         .punnett-square td, .punnett-square th {
-            border: 2px solid #4a6491;
-            width: 60px;
-            height: 60px;
-            padding: 5px;
+            border: 3px solid #4a6491;
+            min-width: 100px;
+            min-height: 100px;
+            padding: 8px;
+            font-weight: bold;
+            font-size: 1.1rem;
         }
         
         .punnett-square th {
@@ -255,7 +238,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 60px;
+            min-height: 100px;
             transition: background-color 0.3s;
         }
         
@@ -274,71 +257,104 @@
         .genotype-display {
             font-weight: bold;
             color: #1a2a6c;
+            font-size: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .genotype-part {
+            padding: 3px;
+            border-radius: 4px;
         }
         
         .phenotype-display {
-            margin-top: 15px;
-            padding: 10px;
+            margin-top: 20px;
+            padding: 15px;
             background-color: #f0f8ff;
-            border-radius: 5px;
+            border-radius: 10px;
             font-weight: bold;
             text-align: center;
+            font-size: 1.1rem;
+            border: 1px solid #bbdefb;
         }
         
         .options {
-            margin-top: 20px;
+            margin-top: 25px;
         }
         
         .options label {
             display: block;
-            padding: 12px;
-            margin: 8px 0;
+            padding: 15px;
+            margin: 12px 0;
             background-color: #f9f9f9;
-            border-radius: 5px;
+            border-radius: 10px;
             cursor: pointer;
             transition: all 0.3s;
             border: 1px solid #eee;
+            font-size: 1.1rem;
         }
         
         .options label:hover {
             background-color: #e3f2fd;
-            transform: translateX(5px);
+            transform: translateX(10px);
+            border-color: #bbdefb;
+        }
+        
+        .reset-btn {
+            background: linear-gradient(to right, #e74c3c, #c0392b);
+            color: white;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .reset-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
         }
         
         .submit-container {
             text-align: center;
-            padding: 25px;
+            padding: 30px;
         }
         
         .submit-btn {
             background: linear-gradient(to right, #27ae60, #2ecc71);
             color: white;
             border: none;
-            padding: 15px 40px;
-            font-size: 1.2rem;
-            border-radius: 50px;
+            padding: 18px 45px;
+            font-size: 1.3rem;
+            border-radius: 60px;
             cursor: pointer;
             font-weight: bold;
             transition: all 0.3s;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto;
-            gap: 10px;
+            gap: 12px;
         }
         
         .submit-btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            transform: translateY(-7px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
         }
         
         .footer {
             text-align: center;
-            padding: 20px;
+            padding: 25px;
             color: white;
             background: linear-gradient(to right, #2c3e50, #1a2a6c);
-            font-size: 0.9rem;
+            font-size: 1rem;
         }
         
         .success-message {
@@ -366,8 +382,8 @@
         }
         
         .heredogram {
-            margin: 20px auto;
-            padding: 15px;
+            margin: 25px auto;
+            padding: 20px;
             background-color: white;
             border-radius: 10px;
             text-align: center;
@@ -375,28 +391,33 @@
             font-family: monospace;
             white-space: pre;
             overflow-x: auto;
-            font-size: 1.1rem;
-            line-height: 1.4;
+            font-size: 1.2rem;
+            line-height: 1.5;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid #e0e0e0;
         }
         
-        .reset-btn {
-            background: linear-gradient(to right, #e74c3c, #c0392b);
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            margin-top: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-        }
-        
-        @media (max-width: 768px) {
+        @media (max-width: 992px) {
             .student-info {
                 flex-direction: column;
+            }
+            
+            .school-name {
+                font-size: 1.7rem;
+            }
+            
+            .activity-title {
+                font-size: 1.8rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            body {
+                padding: 10px;
+            }
+            
+            .header {
+                padding: 15px;
             }
             
             .school-name {
@@ -404,11 +425,33 @@
             }
             
             .activity-title {
-                font-size: 1.6rem;
+                font-size: 1.5rem;
+                margin: 20px 10px 15px;
+                padding: 10px;
             }
             
-            .gametes-container {
-                flex-direction: column;
+            .instructions {
+                padding: 15px;
+                margin: 0 10px 20px;
+            }
+            
+            .question {
+                padding: 20px 15px;
+            }
+            
+            .question-number {
+                font-size: 1.1rem;
+            }
+            
+            .options label {
+                padding: 12px;
+                font-size: 1rem;
+            }
+            
+            .allele {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
             }
         }
     </style>
@@ -535,7 +578,7 @@
                 
                 <div class="info-item">
                     <label><i class="fas fa-calendar"></i> DATA:</label>
-                    <input type="text" id="student-date" readonly>
+                    <input type="text" id="student-date" readonly value="Carregando...">
                 </div>
             </div>
         </div>
@@ -544,8 +587,7 @@
         
         <div class="instructions">
             <h3><i class="fas fa-info-circle"></i> Instruções:</h3>
-            <p>Para cada questão, arraste os alelos para os gametas femininos e masculinos para formar os genótipos. As células ficarão verdes para combinações corretas e vermelhas para incorretas. Após completar o quadro, marque a alternativa correta com base nos fenótipos resultantes.</p>
-            <p><strong>Novo:</strong> Agora você pode arrastar alelos para ambos os gametas (feminino e masculino) para formar o quadro de Punnett completo!</p>
+            <p>Para cada questão, arraste os alelos para os quadros de Punnett para formar os genótipos. As células ficarão verdes para combinações corretas e vermelhas para incorretas. Após completar o quadro, marque a alternativa correta com base nos fenótipos resultantes. Use o botão "Refazer" para limpar o quadro e tentar novamente.</p>
         </div>
         
         <div class="questions-container">
@@ -554,47 +596,31 @@
                 <div class="question-number">1. Em uma espécie vegetal, a cor das flores é determinada por um gene com dominância incompleta. O alelo A (vermelho) e o alelo a (branco) produzem flores rosas quando em heterozigose. Se duas plantas de flores rosas são cruzadas, qual a proporção fenotípica esperada?</div>
                 
                 <div class="punnett-interactive">
-                    <div class="allele-pool" id="pool-1">
-                        <div class="allele" draggable="true" data-allele="A">A</div>
-                        <div class="allele" draggable="true" data-allele="a">a</div>
+                    <div class="controls">
+                        <div class="allele-pool">
+                            <div class="allele" draggable="true" data-allele="A">A</div>
+                            <div class="allele" draggable="true" data-allele="a">a</div>
+                        </div>
+                        <button class="reset-btn" onclick="resetPunnett('q1')"><i class="fas fa-redo"></i> Refazer</button>
                     </div>
                     
-                    <div class="gametes-container">
-                        <div class="gametes-section">
-                            <h4><i class="fas fa-venus"></i> Gametas Femininos</h4>
-                            <div class="gamete-parent">
-                                <div class="drop-zone gamete-zone" data-parent="female" data-gamete="1" data-question="1"></div>
-                                <div class="drop-zone gamete-zone" data-parent="female" data-gamete="2" data-question="1"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="gametes-section">
-                            <h4><i class="fas fa-mars"></i> Gametas Masculinos</h4>
-                            <div class="gamete-parent">
-                                <div class="drop-zone gamete-zone" data-parent="male" data-gamete="1" data-question="1"></div>
-                                <div class="drop-zone gamete-zone" data-parent="male" data-gamete="2" data-question="1"></div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <table class="punnett-square" id="punnett-1">
+                    <table class="punnett-square">
                         <tr>
                             <th></th>
-                            <th><div class="gamete-cell" id="male-gamete-1-1">-</div></th>
-                            <th><div class="gamete-cell" id="male-gamete-1-2">-</div></th>
+                            <th><div class="drop-zone" data-gamete="col" id="gamete-col-1"></div></th>
+                            <th><div class="drop-zone" data-gamete="col" id="gamete-col-2"></div></th>
                         </tr>
                         <tr>
-                            <th><div class="gamete-cell" id="female-gamete-1-1">-</div></th>
-                            <td><div class="genotype-display" id="cell-1-1-1">-</div></td>
-                            <td><div class="genotype-display" id="cell-1-1-2">-</div></td>
+                            <th><div class="drop-zone" data-gamete="row" id="gamete-row-1"></div></th>
+                            <td><div class="drop-zone" data-cell="1-1"></div></td>
+                            <td><div class="drop-zone" data-cell="1-2"></div></td>
                         </tr>
                         <tr>
-                            <th><div class="gamete-cell" id="female-gamete-1-2">-</div></th>
-                            <td><div class="genotype-display" id="cell-1-2-1">-</div></td>
-                            <td><div class="genotype-display" id="cell-1-2-2">-</div></td>
+                            <th><div class="drop-zone" data-gamete="row" id="gamete-row-2"></div></th>
+                            <td><div class="drop-zone" data-cell="2-1"></div></td>
+                            <td><div class="drop-zone" data-cell="2-2"></div></td>
                         </tr>
                     </table>
-                    <button class="reset-btn" onclick="resetQuestion(1)"><i class="fas fa-redo"></i> Reiniciar Quadro</button>
                     <div class="phenotype-display" id="phenotype-display-1">Fenótipos: Aguardando combinações...</div>
                 </div>
                 
@@ -606,15 +632,15 @@
                 </div>
             </div>
             
-            <!-- Questão 2 -->
+            <!-- Questão 2 (Heredograma corrigido) -->
             <div class="question" id="question-2">
                 <div class="question-number">2. O heredograma abaixo mostra a herança de albinismo (recessivo autossômico) em uma família. Qual a probabilidade do casal III-1 e III-2 terem uma criança albina?</div>
                 <div class="heredogram">
-                    I      □───■
+                    I      ○────●
                            │
-                    II     □───□
-                           │   │
-                    III    □   □───○
+                    II     ○────□
+                           │    │
+                    III    ○    □
                 </div>
                 <div class="options">
                     <label><input type="radio" name="q2" value="a"> a) 0%</label>
@@ -629,47 +655,31 @@
                 <div class="question-number">3. Em uma espécie animal, a cor da pelagem é determinada por um gene com dois alelos: B (preto) e b (branco), com dominância completa. Um macho preto homozigoto é cruzado com uma fêmea branca. Qual será a proporção fenotípica na F1?</div>
                 
                 <div class="punnett-interactive">
-                    <div class="allele-pool" id="pool-3">
-                        <div class="allele" draggable="true" data-allele="B">B</div>
-                        <div class="allele" draggable="true" data-allele="b">b</div>
+                    <div class="controls">
+                        <div class="allele-pool">
+                            <div class="allele" draggable="true" data-allele="B">B</div>
+                            <div class="allele" draggable="true" data-allele="b">b</div>
+                        </div>
+                        <button class="reset-btn" onclick="resetPunnett('q3')"><i class="fas fa-redo"></i> Refazer</button>
                     </div>
                     
-                    <div class="gametes-container">
-                        <div class="gametes-section">
-                            <h4><i class="fas fa-venus"></i> Gametas Femininos</h4>
-                            <div class="gamete-parent">
-                                <div class="drop-zone gamete-zone" data-parent="female" data-gamete="1" data-question="3"></div>
-                                <div class="drop-zone gamete-zone" data-parent="female" data-gamete="2" data-question="3"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="gametes-section">
-                            <h4><i class="fas fa-mars"></i> Gametas Masculinos</h4>
-                            <div class="gamete-parent">
-                                <div class="drop-zone gamete-zone" data-parent="male" data-gamete="1" data-question="3"></div>
-                                <div class="drop-zone gamete-zone" data-parent="male" data-gamete="2" data-question="3"></div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <table class="punnett-square" id="punnett-3">
+                    <table class="punnett-square">
                         <tr>
                             <th></th>
-                            <th><div class="gamete-cell" id="male-gamete-3-1">-</div></th>
-                            <th><div class="gamete-cell" id="male-gamete-3-2">-</div></th>
+                            <th><div class="drop-zone" data-gamete="col" id="gamete-col-3"></div></th>
+                            <th><div class="drop-zone" data-gamete="col" id="gamete-col-4"></div></th>
                         </tr>
                         <tr>
-                            <th><div class="gamete-cell" id="female-gamete-3-1">-</div></th>
-                            <td><div class="genotype-display" id="cell-3-1-1">-</div></td>
-                            <td><div class="genotype-display" id="cell-3-1-2">-</div></td>
+                            <th><div class="drop-zone" data-gamete="row" id="gamete-row-3"></div></th>
+                            <td><div class="drop-zone" data-cell="3-1"></div></td>
+                            <td><div class="drop-zone" data-cell="3-2"></div></td>
                         </tr>
                         <tr>
-                            <th><div class="gamete-cell" id="female-gamete-3-2">-</div></th>
-                            <td><div class="genotype-display" id="cell-3-2-1">-</div></td>
-                            <td><div class="genotype-display" id="cell-3-2-2">-</div></td>
+                            <th><div class="drop-zone" data-gamete="row" id="gamete-row-4"></div></th>
+                            <td><div class="drop-zone" data-cell="4-1"></div></td>
+                            <td><div class="drop-zone" data-cell="4-2"></div></td>
                         </tr>
                     </table>
-                    <button class="reset-btn" onclick="resetQuestion(3)"><i class="fas fa-redo"></i> Reiniciar Quadro</button>
                     <div class="phenotype-display" id="phenotype-display-3">Fenótipos: Aguardando combinações...</div>
                 </div>
                 
@@ -681,15 +691,15 @@
                 </div>
             </div>
             
-            <!-- Questão 4 -->
+            <!-- Questão 4 (Heredograma corrigido) -->
             <div class="question" id="question-4">
                 <div class="question-number">4. Analise o heredograma abaixo, que mostra a herança de uma doença genética rara. Qual é o padrão de herança mais provável?</div>
                 <div class="heredogram">
-                    I      □───●
+                    I      ○────●
                            │
-                    II     □───■
-                           │   │
-                    III    ○   □───■
+                    II     □────●
+                           │    │
+                    III    ○    □────●
                 </div>
                 <div class="options">
                     <label><input type="radio" name="q4" value="a"> a) Autossômico dominante</label>
@@ -704,47 +714,31 @@
                 <div class="question-number">5. Em uma planta, a altura é determinada por um gene com dois alelos: T (alto) e t (baixo), com dominância completa. Duas plantas heterozigotas são cruzadas. Qual a proporção genotípica esperada?</div>
                 
                 <div class="punnett-interactive">
-                    <div class="allele-pool" id="pool-5">
-                        <div class="allele" draggable="true" data-allele="T">T</div>
-                        <div class="allele" draggable="true" data-allele="t">t</div>
+                    <div class="controls">
+                        <div class="allele-pool">
+                            <div class="allele" draggable="true" data-allele="T">T</div>
+                            <div class="allele" draggable="true" data-allele="t">t</div>
+                        </div>
+                        <button class="reset-btn" onclick="resetPunnett('q5')"><i class="fas fa-redo"></i> Refazer</button>
                     </div>
                     
-                    <div class="gametes-container">
-                        <div class="gametes-section">
-                            <h4><i class="fas fa-venus"></i> Gametas Femininos</h4>
-                            <div class="gamete-parent">
-                                <div class="drop-zone gamete-zone" data-parent="female" data-gamete="1" data-question="5"></div>
-                                <div class="drop-zone gamete-zone" data-parent="female" data-gamete="2" data-question="5"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="gametes-section">
-                            <h4><i class="fas fa-mars"></i> Gametas Masculinos</h4>
-                            <div class="gamete-parent">
-                                <div class="drop-zone gamete-zone" data-parent="male" data-gamete="1" data-question="5"></div>
-                                <div class="drop-zone gamete-zone" data-parent="male" data-gamete="2" data-question="5"></div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <table class="punnett-square" id="punnett-5">
+                    <table class="punnett-square">
                         <tr>
                             <th></th>
-                            <th><div class="gamete-cell" id="male-gamete-5-1">-</div></th>
-                            <th><div class="gamete-cell" id="male-gamete-5-2">-</div></th>
+                            <th><div class="drop-zone" data-gamete="col" id="gamete-col-5"></div></th>
+                            <th><div class="drop-zone" data-gamete="col" id="gamete-col-6"></div></th>
                         </tr>
                         <tr>
-                            <th><div class="gamete-cell" id="female-gamete-5-1">-</div></th>
-                            <td><div class="genotype-display" id="cell-5-1-1">-</div></td>
-                            <td><div class="genotype-display" id="cell-5-1-2">-</div></td>
+                            <th><div class="drop-zone" data-gamete="row" id="gamete-row-5"></div></th>
+                            <td><div class="drop-zone" data-cell="5-1"></div></td>
+                            <td><div class="drop-zone" data-cell="5-2"></div></td>
                         </tr>
                         <tr>
-                            <th><div class="gamete-cell" id="female-gamete-5-2">-</div></th>
-                            <td><div class="genotype-display" id="cell-5-2-1">-</div></td>
-                            <td><div class="genotype-display" id="cell-5-2-2">-</div></td>
+                            <th><div class="drop-zone" data-gamete="row" id="gamete-row-6"></div></th>
+                            <td><div class="drop-zone" data-cell="6-1"></div></td>
+                            <td><div class="drop-zone" data-cell="6-2"></div></td>
                         </tr>
                     </table>
-                    <button class="reset-btn" onclick="resetQuestion(5)"><i class="fas fa-redo"></i> Reiniciar Quadro</button>
                     <div class="phenotype-display" id="phenotype-display-5">Fenótipos: Aguardando combinações...</div>
                 </div>
                 
@@ -756,13 +750,13 @@
                 </div>
             </div>
             
-            <!-- Mais questões seguindo o mesmo padrão -->
+            <!-- Questão 6 (Heredograma corrigido) -->
             <div class="question" id="question-6">
                 <div class="question-number">6. O heredograma abaixo mostra a herança de daltonismo (ligado ao X recessivo). Qual a probabilidade do casal II-3 e II-4 terem uma filha daltônica?</div>
                 <div class="heredogram">
-                    I      □───■
+                    I      ○────■
                            │
-                    II     ●   □───■
+                    II     ●    □────■
                 </div>
                 <div class="options">
                     <label><input type="radio" name="q6" value="a"> a) 0%</label>
@@ -772,155 +766,89 @@
                 </div>
             </div>
             
+            <!-- Questão 7 -->
             <div class="question" id="question-7">
-                <div class="question-number">7. Em uma espécie de inseto, a cor das asas é determinada por dois genes independentes (segunda lei de Mendel). O gene A determina asas pretas (dominante) e o gene B determina asas com manchas (dominante). Dois insetos duplo heterozigotos são cruzados. Qual a proporção fenotípica esperada?</div>
+                <div class="question-number">7. Em uma espécie de inseto, a cor das asas é determinada por dois genes independentes. O gene A determina asas pretas (dominante) e o gene B determina asas com manchas (dominante). Dois insetos duplo heterozigotos (AaBb) são cruzados. Qual a proporção fenotípica esperada?</div>
                 
                 <div class="punnett-interactive">
-                    <div class="allele-pool" id="pool-7">
-                        <div class="allele" draggable="true" data-allele="A">A</div>
-                        <div class="allele" draggable="true" data-allele="a">a</div>
-                        <div class="allele" draggable="true" data-allele="B">B</div>
-                        <div class="allele" draggable="true" data-allele="b">b</div>
+                    <div class="controls">
+                        <div class="allele-pool">
+                            <div class="allele" draggable="true" data-allele="A">A</div>
+                            <div class="allele" draggable="true" data-allele="a">a</div>
+                            <div class="allele" draggable="true" data-allele="B">B</div>
+                            <div class="allele" draggable="true" data-allele="b">b</div>
+                        </div>
+                        <button class="reset-btn" onclick="resetPunnett('q7')"><i class="fas fa-redo"></i> Refazer</button>
                     </div>
                     
-                    <div class="gametes-container">
-                        <div class="gametes-section">
-                            <h4><i class="fas fa-venus"></i> Gametas Femininos</h4>
-                            <div class="gamete-parent">
-                                <div class="drop-zone gamete-zone" data-parent="female" data-gamete="1" data-question="7"></div>
-                                <div class="drop-zone gamete-zone" data-parent="female" data-gamete="2" data-question="7"></div>
-                                <div class="drop-zone gamete-zone" data-parent="female" data-gamete="3" data-question="7"></div>
-                                <div class="drop-zone gamete-zone" data-parent="female" data-gamete="4" data-question="7"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="gametes-section">
-                            <h4><i class="fas fa-mars"></i> Gametas Masculinos</h4>
-                            <div class="gamete-parent">
-                                <div class="drop-zone gamete-zone" data-parent="male" data-gamete="1" data-question="7"></div>
-                                <div class="drop-zone gamete-zone" data-parent="male" data-gamete="2" data-question="7"></div>
-                                <div class="drop-zone gamete-zone" data-parent="male" data-gamete="3" data-question="7"></div>
-                                <div class="drop-zone gamete-zone" data-parent="male" data-gamete="4" data-question="7"></div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <table class="punnett-square" id="punnett-7">
+                    <table class="punnett-square">
                         <tr>
                             <th></th>
-                            <th><div class="gamete-cell" id="male-gamete-7-1">-</div></th>
-                            <th><div class="gamete-cell" id="male-gamete-7-2">-</div></th>
-                            <th><div class="gamete-cell" id="male-gamete-7-3">-</div></th>
-                            <th><div class="gamete-cell" id="male-gamete-7-4">-</div></th>
+                            <th><div class="drop-zone" data-gamete="col" id="gamete-col-7"></div></th>
+                            <th><div class="drop-zone" data-gamete="col" id="gamete-col-8"></div></th>
+                            <th><div class="drop-zone" data-gamete="col" id="gamete-col-9"></div></th>
+                            <th><div class="drop-zone" data-gamete="col" id="gamete-col-10"></div></th>
                         </tr>
                         <tr>
-                            <th><div class="gamete-cell" id="female-gamete-7-1">-</div></th>
-                            <td><div class="genotype-display" id="cell-7-1-1">-</div></td>
-                            <td><div class="genotype-display" id="cell-7-1-2">-</div></td>
-                            <td><div class="genotype-display" id="cell-7-1-3">-</div></td>
-                            <td><div class="genotype-display" id="cell-7-1-4">-</div></td>
+                            <th><div class="drop-zone" data-gamete="row" id="gamete-row-7"></div></th>
+                            <td><div class="drop-zone" data-cell="7-1"></div></td>
+                            <td><div class="drop-zone" data-cell="7-2"></div></td>
+                            <td><div class="drop-zone" data-cell="7-3"></div></td>
+                            <td><div class="drop-zone" data-cell="7-4"></div></td>
                         </tr>
                         <tr>
-                            <th><div class="gamete-cell" id="female-gamete-7-2">-</div></th>
-                            <td><div class="genotype-display" id="cell-7-2-1">-</div></td>
-                            <td><div class="genotype-display" id="cell-7-2-2">-</div></td>
-                            <td><div class="genotype-display" id="cell-7-2-3">-</div></td>
-                            <td><div class="genotype-display" id="cell-7-2-4">-</div></td>
+                            <th><div class="drop-zone" data-gamete="row" id="gamete-row-8"></div></th>
+                            <td><div class="drop-zone" data-cell="8-1"></div></td>
+                            <td><div class="drop-zone" data-cell="8-2"></div></td>
+                            <td><div class="drop-zone" data-cell="8-3"></div></td>
+                            <td><div class="drop-zone" data-cell="8-4"></div></td>
                         </tr>
                         <tr>
-                            <th><div class="gamete-cell" id="female-gamete-7-3">-</div></th>
-                            <td><div class="genotype-display" id="cell-7-3-1">-</div></td>
-                            <td><div class="genotype-display" id="cell-7-3-2">-</div></td>
-                            <td><div class="genotype-display" id="cell-7-3-3">-</div></td>
-                            <td><div class="genotype-display" id="cell-7-3-4">-</div></td>
+                            <th><div class="drop-zone" data-gamete="row" id="gamete-row-9"></div></th>
+                            <td><div class="drop-zone" data-cell="9-1"></div></td>
+                            <td><div class="drop-zone" data-cell="9-2"></div></td>
+                            <td><div class="drop-zone" data-cell="9-3"></div></td>
+                            <td><div class="drop-zone" data-cell="9-4"></div></td>
                         </tr>
                         <tr>
-                            <th><div class="gamete-cell" id="female-gamete-7-4">-</div></th>
-                            <td><div class="genotype-display" id="cell-7-4-1">-</div></td>
-                            <td><div class="genotype-display" id="cell-7-4-2">-</div></td>
-                            <td><div class="genotype-display" id="cell-7-4-3">-</div></td>
-                            <td><div class="genotype-display" id="cell-7-4-4">-</div></td>
+                            <th><div class="drop-zone" data-gamete="row" id="gamete-row-10"></div></th>
+                            <td><div class="drop-zone" data-cell="10-1"></div></td>
+                            <td><div class="drop-zone" data-cell="10-2"></div></td>
+                            <td><div class="drop-zone" data-cell="10-3"></div></td>
+                            <td><div class="drop-zone" data-cell="10-4"></div></td>
                         </tr>
                     </table>
-                    <button class="reset-btn" onclick="resetQuestion(7)"><i class="fas fa-redo"></i> Reiniciar Quadro</button>
                     <div class="phenotype-display" id="phenotype-display-7">Fenótipos: Aguardando combinações...</div>
                 </div>
                 
                 <div class="options">
-                    <label><input type="radio" name="q7" value="a"> a) 9:3:3:1</label>
-                    <label><input type="radio" name="q7" value="b"> b) 1:1:1:1</label>
-                    <label><input type="radio" name="q7" value="c"> c) 3:1</label>
-                    <label><input type="radio" name="q7" value="d"> d) 9:7</label>
+                    <label><input type="radio" name="q7" value="a"> a) 9 pretas com manchas : 3 pretas lisas : 3 vermelhas com manchas : 1 vermelha lisa</label>
+                    <label><input type="radio" name="q7" value="b"> b) 12 pretas : 4 vermelhas</label>
+                    <label><input type="radio" name="q7" value="c"> c) 3 pretas : 1 vermelha</label>
+                    <label><input type="radio" name="q7" value="d"> d) 9 pretas : 7 vermelhas</label>
                 </div>
             </div>
             
-            <!-- Questão 8 (com quadro de Punnett) -->
+            <!-- Questões 8-10 -->
             <div class="question" id="question-8">
                 <div class="question-number">8. Em uma família, o pai tem grupo sanguíneo AB e a mãe tem grupo sanguíneo O. Quais os possíveis grupos sanguíneos dos filhos?</div>
-                
-                <div class="punnett-interactive">
-                    <div class="allele-pool" id="pool-8">
-                        <div class="allele" draggable="true" data-allele="A">A</div>
-                        <div class="allele" draggable="true" data-allele="B">B</div>
-                        <div class="allele" draggable="true" data-allele="O">O</div>
-                    </div>
-                    
-                    <div class="gametes-container">
-                        <div class="gametes-section">
-                            <h4><i class="fas fa-venus"></i> Gametas Femininos</h4>
-                            <div class="gamete-parent">
-                                <div class="drop-zone gamete-zone" data-parent="female" data-gamete="1" data-question="8"></div>
-                                <div class="drop-zone gamete-zone" data-parent="female" data-gamete="2" data-question="8"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="gametes-section">
-                            <h4><i class="fas fa-mars"></i> Gametas Masculinos</h4>
-                            <div class="gamete-parent">
-                                <div class="drop-zone gamete-zone" data-parent="male" data-gamete="1" data-question="8"></div>
-                                <div class="drop-zone gamete-zone" data-parent="male" data-gamete="2" data-question="8"></div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <table class="punnett-square" id="punnett-8">
-                        <tr>
-                            <th></th>
-                            <th><div class="gamete-cell" id="male-gamete-8-1">-</div></th>
-                            <th><div class="gamete-cell" id="male-gamete-8-2">-</div></th>
-                        </tr>
-                        <tr>
-                            <th><div class="gamete-cell" id="female-gamete-8-1">-</div></th>
-                            <td><div class="genotype-display" id="cell-8-1-1">-</div></td>
-                            <td><div class="genotype-display" id="cell-8-1-2">-</div></td>
-                        </tr>
-                        <tr>
-                            <th><div class="gamete-cell" id="female-gamete-8-2">-</div></th>
-                            <td><div class="genotype-display" id="cell-8-2-1">-</div></td>
-                            <td><div class="genotype-display" id="cell-8-2-2">-</div></td>
-                        </tr>
-                    </table>
-                    <button class="reset-btn" onclick="resetQuestion(8)"><i class="fas fa-redo"></i> Reiniciar Quadro</button>
-                    <div class="phenotype-display" id="phenotype-display-8">Fenótipos: Aguardando combinações...</div>
-                </div>
-                
                 <div class="options">
                     <label><input type="radio" name="q8" value="a"> a) A ou B</label>
                     <label><input type="radio" name="q8" value="b"> b) AB ou O</label>
-                    <label><input type="radio" name="q8" valud="c"> c) A, B ou O</label>
+                    <label><input type="radio" name="q8" value="c"> c) A, B ou O</label>
                     <label><input type="radio" name="q8" value="d"> d) A ou B, mas não AB ou O</label>
                 </div>
             </div>
             
-            <!-- Questões 9-10 -->
+            <!-- Questão 9 (Heredograma corrigido) -->
             <div class="question" id="question-9">
                 <div class="question-number">9. O heredograma abaixo mostra a herança de uma característica rara. Qual a probabilidade do indivíduo IV-1 ser portador do alelo recessivo?</div>
                 <div class="heredogram">
-                    I      □───■
+                    I      □────●
                            │
-                    II     □───□
-                           │   │
-                    III    ○   □───■
+                    II     ○────□
+                           │    │
+                    III    ○    □────●
                            │
                     IV     ○
                 </div>
@@ -974,19 +902,17 @@
 
         // Configurar data atual
         const today = new Date();
-        document.getElementById('student-date').value = today.toLocaleDateString('pt-BR');
+        const formattedDate = `${today.getDate().toString().padStart(2, '0')}/${(today.getMonth() + 1).toString().padStart(2, '0')}/${today.getFullYear()}`;
+        document.getElementById('student-date').value = formattedDate;
         
         // Drag and drop
         let draggedAllele = null;
-        let gametes = {
-            // Estrutura: {question: {female: [], male: []}}
-        };
         
         document.addEventListener('dragstart', function(event) {
             if (event.target.classList.contains('allele')) {
                 draggedAllele = event.target;
                 event.dataTransfer.setData('text/plain', event.target.dataset.allele);
-                setTimeout(() => event.target.style.opacity = '0.4', 0);
+                event.target.style.opacity = '0.4';
             }
         });
         
@@ -997,120 +923,134 @@
         });
         
         document.addEventListener('dragover', function(event) {
-            if (event.target.classList.contains('gamete-zone')) {
+            if (event.target.classList.contains('drop-zone')) {
                 event.preventDefault();
                 event.target.classList.add('highlight');
             }
         });
         
         document.addEventListener('dragleave', function(event) {
-            if (event.target.classList.contains('gamete-zone')) {
+            if (event.target.classList.contains('drop-zone')) {
                 event.target.classList.remove('highlight');
             }
         });
         
         document.addEventListener('drop', function(event) {
-            if (event.target.classList.contains('gamete-zone')) {
+            if (event.target.classList.contains('drop-zone')) {
                 event.preventDefault();
                 event.target.classList.remove('highlight');
                 
-                const allele = draggedAllele.dataset.allele;
-                const questionId = event.target.dataset.question;
-                const parentType = event.target.dataset.parent;
-                const gameteId = event.target.dataset.gamete;
+                const allele = event.dataTransfer.getData('text/plain');
+                const cell = event.target;
                 
-                // Remover qualquer conteúdo anterior
-                event.target.innerHTML = '';
-                
-                // Adicionar o novo alelo
-                const alleleClone = draggedAllele.cloneNode(true);
-                alleleClone.style.opacity = '1';
-                event.target.appendChild(alleleClone);
-                
-                // Armazenar o alelo
-                if (!gametes[questionId]) gametes[questionId] = {female: {}, male: {}};
-                
-                if (parentType === 'female') {
-                    gametes[questionId].female[gameteId] = allele;
+                // Verificar se é uma célula de gameta ou de genótipo
+                if (cell.dataset.gamete) {
+                    // Gameta: só pode ter um alelo
+                    cell.innerHTML = `<div class="allele" draggable="true" data-allele="${allele}">${allele}</div>`;
                 } else {
-                    gametes[questionId].male[gameteId] = allele;
-                }
-                
-                // Atualizar o quadro de Punnett
-                updatePunnettSquare(questionId);
-            }
-        });
-        
-        function updatePunnettSquare(questionId) {
-            const qGametes = gametes[questionId];
-            if (!qGametes) return;
-            
-            // Atualizar cabeçalhos de gametas
-            for (const [gameteId, allele] of Object.entries(qGametes.female)) {
-                const cell = document.getElementById(`female-gamete-${questionId}-${gameteId}`);
-                if (cell) cell.textContent = allele;
-            }
-            
-            for (const [gameteId, allele] of Object.entries(qGametes.male)) {
-                const cell = document.getElementById(`male-gamete-${questionId}-${gameteId}`);
-                if (cell) cell.textContent = allele;
-            }
-            
-            // Calcular e atualizar as células internas
-            const femaleGametes = Object.values(qGametes.female);
-            const maleGametes = Object.values(qGametes.male);
-            
-            // Para cada célula do quadro
-            for (let i = 0; i < femaleGametes.length; i++) {
-                for (let j = 0; j < maleGametes.length; j++) {
-                    const femaleAllele = femaleGametes[i];
-                    const maleAllele = maleGametes[j];
-                    
-                    if (femaleAllele && maleAllele) {
-                        const cell = document.getElementById(`cell-${questionId}-${i+1}-${j+1}`);
-                        if (cell) {
-                            // Ordenar alelos para genótipo padrão (maiúscula primeiro)
-                            const alleles = [femaleAllele, maleAllele];
-                            alleles.sort((a, b) => b.localeCompare(a)); // Maiúsculas primeiro
+                    // Célula de genótipo: pode ter múltiplos alelos
+                    if (cell.innerHTML === '') {
+                        cell.innerHTML = `<div class="allele" draggable="true" data-allele="${allele}">${allele}</div>`;
+                    } else {
+                        // Adicionar novo alelo à célula
+                        const existingContent = cell.innerHTML;
+                        const newAllele = `<div class="allele" draggable="true" data-allele="${allele}">${allele}</div>`;
+                        
+                        // Verificar quantos alelos já existem
+                        const allelesCount = cell.querySelectorAll('.allele').length;
+                        
+                        if (allelesCount < 4) {
+                            cell.innerHTML = existingContent + newAllele;
                             
-                            const genotype = alleles.join('');
-                            cell.textContent = genotype;
-                            
-                            // Validar o genótipo
-                            validateGenotype(questionId, i+1, j+1, genotype);
+                            // Quando tivermos 4 alelos, formar o genótipo
+                            if (allelesCount + 1 === 4) {
+                                formGenotype(cell);
+                            }
                         }
                     }
                 }
+                
+                // Atualizar a exibição de fenótipos
+                updatePhenotypeDisplay();
             }
+        });
+        
+        // Função para formar o genótipo quando temos 4 alelos
+        function formGenotype(cell) {
+            const alleles = Array.from(cell.querySelectorAll('.allele')).map(el => el.dataset.allele);
             
-            // Atualizar a exibição de fenótipos
-            updatePhenotypeDisplay(questionId);
+            // Organizar os alelos em pares de genes
+            const geneA = alleles.filter(a => a === 'A' || a === 'a');
+            const geneB = alleles.filter(a => a === 'B' || a === 'b');
+            const geneT = alleles.filter(a => a === 'T' || a === 't');
+            
+            let genotype = '';
+            
+            // Verificar qual gene está sendo usado na questão
+            if (geneA.length === 2 && geneB.length === 2) {
+                // Questão 7 (diíbrido)
+                const sortedGeneA = geneA.sort((a, b) => b.localeCompare(a));
+                const sortedGeneB = geneB.sort((a, b) => b.localeCompare(a));
+                genotype = `${sortedGeneA.join('')}${sortedGeneB.join('')}`;
+                
+                // Exibir o genótipo formatado
+                cell.innerHTML = `
+                    <div class="genotype-display">
+                        <div class="genotype-part">${sortedGeneA.join('')}</div>
+                        <div class="genotype-part">${sortedGeneB.join('')}</div>
+                    </div>
+                `;
+                
+                // Validar o genótipo
+                validateGenotype(cell, genotype);
+                
+            } else if (geneA.length === 2) {
+                // Questão 1 (cor das flores)
+                const sortedGene = geneA.sort((a, b) => b.localeCompare(a));
+                genotype = sortedGene.join('');
+                cell.innerHTML = `<div class="genotype-display">${genotype}</div>`;
+                validateGenotype(cell, genotype);
+                
+            } else if (geneB.length === 2) {
+                // Questão 3 (cor da pelagem)
+                const sortedGene = geneB.sort((a, b) => b.localeCompare(a));
+                genotype = sortedGene.join('');
+                cell.innerHTML = `<div class="genotype-display">${genotype}</div>`;
+                validateGenotype(cell, genotype);
+                
+            } else if (geneT.length === 2) {
+                // Questão 5 (altura da planta)
+                const sortedGene = geneT.sort((a, b) => b.localeCompare(a));
+                genotype = sortedGene.join('');
+                cell.innerHTML = `<div class="genotype-display">${genotype}</div>`;
+                validateGenotype(cell, genotype);
+                
+            } else {
+                // Combinação inválida
+                cell.classList.add('incorrect');
+                cell.classList.remove('correct');
+            }
         }
         
-        function validateGenotype(questionId, row, col, genotype) {
-            const cell = document.getElementById(`cell-${questionId}-${row}-${col}`);
-            if (!cell) return;
-            
+        function validateGenotype(cell, genotype) {
+            const parentQuestion = cell.closest('.question').id;
             let isValid = false;
             
-            // Definir genótipos válidos para cada questão
-            switch(questionId) {
-                case '1': // Questão 1: cruzamento Aa x Aa
-                    isValid = ['AA', 'Aa', 'aA', 'aa'].includes(genotype);
-                    break;
-                case '3': // Questão 3: BB x bb
-                    isValid = ['BB', 'Bb', 'bB', 'bb'].includes(genotype);
-                    break;
-                case '5': // Questão 5: Tt x Tt
-                    isValid = ['TT', 'Tt', 'tT', 'tt'].includes(genotype);
-                    break;
-                case '7': // Questão 7: di-hibridismo
-                    // Aceita qualquer combinação de dois alelos
-                    isValid = true;
-                    break;
-                case '8': // Questão 8: grupos sanguíneos
-                    isValid = ['AO', 'OA', 'BO', 'OB'].includes(genotype);
-                    break;
+            // Questão 7: cruzamento diíbrido (AaBb x AaBb)
+            if (parentQuestion === 'question-7') {
+                // Genótipos válidos para cruzamento diíbrido
+                const validGenotypes = [
+                    'AABB', 'AABb', 'AAbB', 'AAbb',
+                    'AaBB', 'AaBb', 'AabB', 'Aabb',
+                    'aABB', 'aABb', 'aAbB', 'aAbb',
+                    'aaBB', 'aaBb', 'aabB', 'aabb'
+                ];
+                
+                isValid = validGenotypes.includes(genotype);
+            } else {
+                // Para outras questões, validar normalmente
+                const validGenotypes = ['AA', 'Aa', 'aA', 'aa', 'BB', 'Bb', 'bB', 'bb', 'TT', 'Tt', 'tT', 'tt'];
+                isValid = validGenotypes.includes(genotype);
             }
             
             if (isValid) {
@@ -1122,86 +1062,134 @@
             }
         }
         
-        function updatePhenotypeDisplay(questionId) {
-            const phenotypeDisplay = document.getElementById(`phenotype-display-${questionId}`);
-            if (!phenotypeDisplay) return;
+        function updatePhenotypeDisplay() {
+            // Atualizar para questão 1
+            const phenotypeDisplay1 = document.getElementById('phenotype-display-1');
+            phenotypeDisplay1.innerHTML = '<strong>Fenótipos:</strong> ';
             
-            phenotypeDisplay.innerHTML = '<strong>Fenótipos:</strong> ';
+            const phenotypes1 = {
+                'Vermelhas': 0,
+                'Rosas': 0,
+                'Brancas': 0
+            };
             
-            // Contar genótipos
-            const genotypes = {};
-            const cells = document.querySelectorAll(`#punnett-${questionId} .genotype-display`);
-            
-            cells.forEach(cell => {
-                const genotype = cell.textContent;
-                if (genotype && genotype !== '-') {
-                    genotypes[genotype] = (genotypes[genotype] || 0) + 1;
+            document.querySelectorAll('#question-1 [data-cell]').forEach(cell => {
+                const genotypeDiv = cell.querySelector('.genotype-display');
+                if (genotypeDiv) {
+                    const genotype = genotypeDiv.textContent.replace(/\s/g, '');
+                    
+                    if (genotype === 'AA') phenotypes1['Vermelhas']++;
+                    else if (genotype === 'Aa' || genotype === 'aA') phenotypes1['Rosas']++;
+                    else if (genotype === 'aa') phenotypes1['Brancas']++;
                 }
             });
             
-            // Calcular fenótipos baseado na questão
-            switch(questionId) {
-                case '1': // Flores: AA=vermelho, Aa=rosa, aa=branco
-                    const red = (genotypes['AA'] || 0);
-                    const pink = (genotypes['Aa'] || 0) + (genotypes['aA'] || 0);
-                    const white = (genotypes['aa'] || 0);
-                    phenotypeDisplay.innerHTML += `Vermelhas: ${red}, Cor-de-rosa: ${pink}, Brancas: ${white}`;
-                    break;
+            for (const [phenotype, count] of Object.entries(phenotypes1)) {
+                if (count > 0) {
+                    phenotypeDisplay1.innerHTML += `${phenotype}: ${count} `;
+                }
+            }
+            
+            // Atualizar para questão 3
+            const phenotypeDisplay3 = document.getElementById('phenotype-display-3');
+            phenotypeDisplay3.innerHTML = '<strong>Fenótipos:</strong> ';
+            
+            const phenotypes3 = {
+                'Pretos': 0,
+                'Brancos': 0
+            };
+            
+            document.querySelectorAll('#question-3 [data-cell]').forEach(cell => {
+                const genotypeDiv = cell.querySelector('.genotype-display');
+                if (genotypeDiv) {
+                    const genotype = genotypeDiv.textContent.replace(/\s/g, '');
                     
-                case '3': // Pelagem: BB e Bb=preto, bb=branco
-                    const black = (genotypes['BB'] || 0) + (genotypes['Bb'] || 0) + (genotypes['bB'] || 0);
-                    const whiteFur = (genotypes['bb'] || 0);
-                    phenotypeDisplay.innerHTML += `Pretos: ${black}, Brancos: ${whiteFur}`;
-                    break;
+                    if (genotype === 'BB' || genotype === 'Bb' || genotype === 'bB') phenotypes3['Pretos']++;
+                    else if (genotype === 'bb') phenotypes3['Brancos']++;
+                }
+            });
+            
+            for (const [phenotype, count] of Object.entries(phenotypes3)) {
+                if (count > 0) {
+                    phenotypeDisplay3.innerHTML += `${phenotype}: ${count} `;
+                }
+            }
+            
+            // Atualizar para questão 5
+            const phenotypeDisplay5 = document.getElementById('phenotype-display-5');
+            phenotypeDisplay5.innerHTML = '<strong>Fenótipos:</strong> ';
+            
+            const phenotypes5 = {
+                'Altos': 0,
+                'Baixos': 0
+            };
+            
+            document.querySelectorAll('#question-5 [data-cell]').forEach(cell => {
+                const genotypeDiv = cell.querySelector('.genotype-display');
+                if (genotypeDiv) {
+                    const genotype = genotypeDiv.textContent.replace(/\s/g, '');
                     
-                case '5': // Plantas: TT e Tt=alto, tt=baixo
-                    const tall = (genotypes['TT'] || 0) + (genotypes['Tt'] || 0) + (genotypes['tT'] || 0);
-                    const short = (genotypes['tt'] || 0);
-                    phenotypeDisplay.innerHTML += `Altas: ${tall}, Baixas: ${short}`;
-                    break;
+                    if (genotype === 'TT' || genotype === 'Tt' || genotype === 'tT') phenotypes5['Altos']++;
+                    else if (genotype === 'tt') phenotypes5['Baixos']++;
+                }
+            });
+            
+            for (const [phenotype, count] of Object.entries(phenotypes5)) {
+                if (count > 0) {
+                    phenotypeDisplay5.innerHTML += `${phenotype}: ${count} `;
+                }
+            }
+            
+            // Atualizar para questão 7
+            const phenotypeDisplay7 = document.getElementById('phenotype-display-7');
+            phenotypeDisplay7.innerHTML = '<strong>Fenótipos:</strong> ';
+            
+            const phenotypes7 = {
+                'Pretas com manchas': 0,
+                'Pretas lisas': 0,
+                'Vermelhas com manchas': 0,
+                'Vermelhas lisas': 0
+            };
+            
+            document.querySelectorAll('#question-7 [data-cell]').forEach(cell => {
+                const genotypeDiv = cell.querySelector('.genotype-display');
+                if (genotypeDiv) {
+                    const genotypeA = genotypeDiv.querySelector('.genotype-part:nth-child(1)')?.textContent || '';
+                    const genotypeB = genotypeDiv.querySelector('.genotype-part:nth-child(2)')?.textContent || '';
                     
-                case '8': // Sangue: AO=A, BO=B
-                    const groupA = (genotypes['AO'] || 0) + (genotypes['OA'] || 0);
-                    const groupB = (genotypes['BO'] || 0) + (genotypes['OB'] || 0);
-                    phenotypeDisplay.innerHTML += `Grupo A: ${groupA}, Grupo B: ${groupB}`;
-                    break;
+                    const color = (genotypeA.includes('A')) ? 'Pretas' : 'Vermelhas';
+                    const pattern = (genotypeB.includes('B')) ? 'com manchas' : 'lisas';
                     
-                case '7': // Dihibridismo
-                    phenotypeDisplay.innerHTML = '<strong>Fenótipos:</strong> Complete o quadro para ver os fenótipos';
-                    break;
+                    const phenotype = `${color} ${pattern}`;
+                    
+                    if (phenotypes7.hasOwnProperty(phenotype)) {
+                        phenotypes7[phenotype]++;
+                    }
+                }
+            });
+            
+            for (const [phenotype, count] of Object.entries(phenotypes7)) {
+                if (count > 0) {
+                    phenotypeDisplay7.innerHTML += `${phenotype}: ${count} `;
+                }
             }
         }
         
-        // Função para reiniciar uma questão específica
-        function resetQuestion(questionId) {
-            // Limpar gametas
-            if (gametes[questionId]) {
-                gametes[questionId] = {female: {}, male: {}};
-            }
+        // Função para resetar um quadro de Punnett
+        function resetPunnett(questionId) {
+            const questionElement = document.querySelector(`#question-${questionId.replace('q', '')}`);
+            if (!questionElement) return;
             
-            // Limpar elementos visuais
-            const questionDiv = document.getElementById(`question-${questionId}`);
-            
-            // Gametas
-            questionDiv.querySelectorAll('.gamete-zone').forEach(zone => {
-                zone.innerHTML = '';
+            // Limpar todas as células
+            questionElement.querySelectorAll('.drop-zone').forEach(cell => {
+                cell.innerHTML = '';
+                cell.classList.remove('correct', 'incorrect', 'highlight');
             });
             
-            // Células de gametas
-            questionDiv.querySelectorAll('.gamete-cell').forEach(cell => {
-                cell.textContent = '-';
-            });
-            
-            // Células internas
-            questionDiv.querySelectorAll('.genotype-display').forEach(cell => {
-                cell.textContent = '-';
-                cell.classList.remove('correct', 'incorrect');
-            });
-            
-            // Resetar o display de fenótipos
-            const phenotypeDisplay = document.getElementById(`phenotype-display-${questionId}`);
+            // Resetar a exibição de fenótipos
+            const phenotypeDisplay = questionElement.querySelector('.phenotype-display');
             if (phenotypeDisplay) {
-                phenotypeDisplay.innerHTML = 'Fenótipos: Aguardando combinações...';
+                phenotypeDisplay.textContent = 'Fenótipos: Aguardando combinações...';
             }
         }
         
@@ -1234,7 +1222,7 @@
                 q6: 'a',
                 q7: 'a',
                 q8: 'a',
-                q9: 'c',
+                q9: 'd',
                 q10: 'a'
             };
             
@@ -1261,7 +1249,7 @@
             const spreadsheetId = "1cw_3Kifufgt42yHsPea3pU_rw8QMgxhqmZY71P8byG4";
             const sheetName = data.class === "9A" ? "9ºANO A" : data.class === "9B" ? "9ºANO B" : "9ºANO C";
             
-            // Simulação de envio
+            // Simulação de envio (em um ambiente real, seria necessário um servidor ou Google Apps Script)
             console.log('Dados enviados para o Google Sheets:', {
                 spreadsheetId: spreadsheetId,
                 sheetName: sheetName,
@@ -1281,14 +1269,7 @@
         // Inicializar
         document.addEventListener('DOMContentLoaded', function() {
             // Preencher data atual
-            document.getElementById('student-date').value = today.toLocaleDateString('pt-BR');
-            
-            // Inicializar estrutura de gametas
-            for (let i = 1; i <= 8; i++) {
-                if ([1, 3, 5, 7, 8].includes(i)) {
-                    gametes[i] = {female: {}, male: {}};
-                }
-            }
+            document.getElementById('student-date').value = formattedDate;
         });
     </script>
 </body>
