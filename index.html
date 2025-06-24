@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atividade de Ciências - Leis de Mendel e Heredogramas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1e5799, #207cca, #2989d8);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(to right, #2c3e50, #4a6491);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .school-name {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .student-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            gap: 15px;
+        }
+        
+        .info-item {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .info-item label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            color: #e0e0e0;
+        }
+        
+        select, input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: white;
+        }
+        
+        .activity-title {
+            text-align: center;
+            font-weight: bold;
+            font-size: 2rem;
+            margin: 25px 0;
+            color: #2c3e50;
+            padding: 10px;
+            background: linear-gradient(to right, #e0e0e0, #f5f5f5);
+            border-radius: 5px;
+            margin: 25px 20px;
+        }
+        
+        .instructions {
+            background-color: #e3f2fd;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 0 20px 25px;
+            border-left: 5px solid #2196f3;
+        }
+        
+        .instructions h3 {
+            color: #1a2a6c;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .questions-container {
+            padding: 0 20px 30px;
+        }
+        
+        .question {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e0e0e0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .question::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, #4a6491, #1a2a6c);
+        }
+        
+        .question-number {
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .question-number::before {
+            content: "•";
+            color: #4a6491;
+            font-size: 2rem;
+            margin-right: 10px;
+        }
+        
+        .punnett-interactive {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            border: 1px dashed #4a6491;
+        }
+        
+        .allele-pool {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            min-height: 50px;
+            padding: 10px;
+            background-color: #e3f2fd;
+            border-radius: 8px;
+        }
+        
+        .allele {
+            width: 40px;
+            height: 40px;
+            background-color: #4a6491;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            cursor: grab;
+            user-select: none;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
+        }
+        
+        .allele:active {
+            cursor: grabbing;
+            transform: scale(1.1);
+        }
+        
+        .punnett-square {
+            margin: 20px auto;
+            border-collapse: collapse;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .punnett-square td, .punnett-square th {
+            border: 2px solid #4a6491;
+            width: 60px;
+            height: 60px;
+            padding: 5px;
+        }
+        
+        .punnett-square th {
+            background-color: #e3f2fd;
+            font-weight: bold;
+            color: #1a2a6c;
+        }
+        
+        .drop-zone {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 60px;
+            transition: background-color 0.3s;
+        }
+        
+        .drop-zone.highlight {
+            background-color: #e3f2fd;
+        }
+        
+        .drop-zone.correct {
+            background-color: #d4edda;
+        }
+        
+        .drop-zone.incorrect {
+            background-color: #f8d7da;
+        }
+        
+        .genotype-display {
+            font-weight: bold;
+            color: #1a2a6c;
+        }
+        
+        .phenotype-display {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #f0f8ff;
+            border-radius: 5px;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        .options {
+            margin-top: 20px;
+        }
+        
+        .options label {
+            display: block;
+            padding: 12px;
+            margin: 8px 0;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid #eee;
+        }
+        
+        .options label:hover {
+            background-color: #e3f2fd;
+            transform: translateX(5px);
+        }
+        
+        .submit-container {
+            text-align: center;
+            padding: 25px;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(to right, #27ae60, #2ecc71);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            gap: 10px;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: white;
+            background: linear-gradient(to right, #2c3e50, #1a2a6c);
+            font-size: 0.9rem;
+        }
+        
+        .success-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(to right, #27ae60, #2ecc71);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            display: none;
+            z-index: 1000;
+            animation: slideIn 0.5s, fadeOut 0.5s 2.5s forwards;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+        
+        .heredogram {
+            margin: 20px auto;
+            padding: 15px;
+            background-color: white;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 600px;
+            font-family: monospace;
+            white-space: pre;
+            overflow-x: auto;
+            font-size: 1.1rem;
+            line-height: 1.4;
+        }
+        
+        .reset-btn {
+            background: linear-gradient(to right, #e74c3c, #c0392b);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+        
+        @media (max-width: 768px) {
+            .student-info {
+                flex-direction: column;
+            }
+            
+            .school-name {
+                font-size: 1.4rem;
+            }
+            
+            .activity-title {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="activity-container">
+        <div class="header">
+            <div class="school-name">E.E. PROFª WANDA MASCAGNI DE SÁ</div>
+            
+            <div class="student-info">
+                <div class="info-item">
+                    <label><i class="fas fa-user"></i> NOME:</label>
+                    <select id="student-name" onchange="fillStudentInfo()">
+                        <option value="">Selecione seu nome</option>
+                        <optgroup label="9ºA">
+                            <option value="1-9A">ÁGATHA NIKOLLE DA SILVA RAMOS</option>
+                            <option value="2-9A">AMANDA BEATRIZ LEAL MOURAD</option>
+                            <option value="4-9A">ANNA NICOLY BENVINDO DOS SANTOS</option>
+                            <option value="5-9A">ARTHUR DOS SANTOS</option>
+                            <option value="6-9A">BEATRIZ UCHOA DOS SANTOS</option>
+                            <option value="7-9A">BRUNO EDUARDO NOGUEIRA DE OLIVEIRA</option>
+                            <option value="8-9A">CARLOS EDUARDO BELMIRO DOS SANTOS</option>
+                            <option value="9-9A">CHRISTIAN DAVI DE OLIVEIRA</option>
+                            <option value="11-9A">ERICK HENRIQUE RIBEIRO GONÇALVES</option>
+                            <option value="12-9A">FILIPE RODRIGUES SANTOS</option>
+                            <option value="13-9A">GABRIEL ALMEIDA MOSCARDINI</option>
+                            <option value="14-9A">GIOVANA MOTA VAZ DE JESUS</option>
+                            <option value="15-9A">GUILHERME DA SILVA GUIMARÃES</option>
+                            <option value="16-9A">HELOÍSA LEAL DOS REIS</option>
+                            <option value="17-9A">IAGO ANJOS DE JESUS</option>
+                            <option value="18-9A">IGNACIO LINS SANTOS</option>
+                            <option value="19-9A">ISADORA DE SOUZA SILVA</option>
+                            <option value="20-9A">JOAO VICTOR BATISTA DUARTE</option>
+                            <option value="21-9A">JULIANA SANTOS LIMA</option>
+                            <option value="25-9A">MANUELA VITÓRIA LIMA DOS SANTOS</option>
+                            <option value="26-9A">MIGUEL ALVES OLIVEIRA</option>
+                            <option value="27-9A">NIKOLAS ANTONIO</option>
+                            <option value="28-9A">ORIANA JOSE TUAREZ RENGEL</option>
+                            <option value="31-9A">RAFAELLA VITÓRIA EXPEDITA DE ANDRADE MARQUES</option>
+                            <option value="33-9A">RAYLAN DE JESUS BARBOSA</option>
+                            <option value="34-9A">REBECA DOS SANTOS SOUSA</option>
+                            <option value="35-9A">RICHARD JOSÉ DOS SANTOS</option>
+                            <option value="36-9A">SARA CRISTINA PASSOS MARTINS</option>
+                            <option value="37-9A">VANESSA CARDOSO DOS SANTOS</option>
+                            <option value="41-9A">JULIA DIAS AZEVEDO</option>
+                            <option value="42-9A">SAMARA HELEN DA SILVA</option>
+                            <option value="44-9A">LUIS MATHEUS DA SILVA RAMOS</option>
+                            <option value="46-9A">FABIO HENRIQUE DA SILVA</option>
+                        </optgroup>
+                        <optgroup label="9ºB">
+                            <option value="1-9B">ALEJANDRO VIEIRA LIMA</option>
+                            <option value="2-9B">ALEX GUSTAVO DA SILVA VIEIRA</option>
+                            <option value="3-9B">ALLAN BEZERRA DE LIMA</option>
+                            <option value="8-9B">ARTHUR MARYANO MENDES</option>
+                            <option value="9-9B">CARLOS EDUARDO OLIVEIRA SABATERRA</option>
+                            <option value="10-9B">DARYO PALMA GREGORIO</option>
+                            <option value="13-9B">EDUARDA DE SOUSA OLIVEIRA</option>
+                            <option value="16-9B">GIOVANNA MARTINEZ FERREIRA</option>
+                            <option value="17-9B">GRAZIELLE VITÓRIA SILVA FIGUEIREDO</option>
+                            <option value="20-9B">JULLIA OLIVEIRA DE SOUZA</option>
+                            <option value="21-9B">KARINA DE JESUS SANTANA</option>
+                            <option value="24-9B">LEONARDO JUNIOR ALBUQUERQUE DA SILVA</option>
+                            <option value="27-9B">MARCOS DE OLIVEIRA CARVALHO</option>
+                            <option value="28-9B">MARIA EDUARDA SILVA SOUZA</option>
+                            <option value="29-9B">MOISES DOS SANTOS BOMFIM</option>
+                            <option value="30-9B">NAHYMÊ VITORIA TAVARES DOS SANTOS</option>
+                            <option value="31-9B">NICOLAS LUAN MENDES</option>
+                            <option value="32-9B">PEDRO HENRIQUE ARRABAL MANZARO</option>
+                            <option value="33-9B">PIETRO RAMON DE PAIVA MAGALHÃES LEITÃO</option>
+                            <option value="35-9B">TATIANA DA SILVA RODRIGUES</option>
+                            <option value="36-9B">VITOR HUGO DOMINGOS SANTOS</option>
+                            <option value="37-9B">WAGNER SILVA MEIRA</option>
+                            <option value="38-9B">YASMIM ANDRADE DOS SANTOS</option>
+                            <option value="39-9B">JULIA BARBOSA DA SILVA</option>
+                            <option value="40-9B">NICOLLY LIRA DA SILVA OLIVEIRA</option>
+                        </optgroup>
+                        <optgroup label="9ºC">
+                            <option value="2-9C">ALEXANDRE SERAFIM JUNIOR</option>
+                            <option value="3-9C">ANA LUIZA DO NASCIMENTO</option>
+                            <option value="5-9C">ARTHUR EMANUEL ALMEIDA REIS</option>
+                            <option value="7-9C">CARLOS AUGUSTO DIAS DE MENDONÇA</option>
+                            <option value="9-9C">DAPHINE SINDIFER RODRIGUES SILVA</option>
+                            <option value="12-9C">ELOISA DE OLIVEIRA CARVALHO</option>
+                            <option value="13-9C">ENZO BAPTISTA MAIA</option>
+                            <option value="14-9C">EVELLYN ANGELINA CAVALCANTE DE OLIVEIRA</option>
+                            <option value="16-9C">GABRIEL VICTOR OLIVEIRA SANTOS</option>
+                            <option value="17-9C">GIOVANNA SOUSA DA SILVA</option>
+                            <option value="18-9C">GUSTAVO FURLAN GUEDES DA SILVA</option>
+                            <option value="23-9C">KAUÃ BRYAN MAZARIO BARBEIRO</option>
+                            <option value="25-9C">KAUAN ALAMBERT GOMES DE SOUSA</option>
+                            <option value="26-9C">KEMILLY CARVALHO DA FONSECA BRITO</option>
+                            <option value="27-9C">KLAIVYN WALLAS ARAUJO ESPIRITO SANTO</option>
+                            <option value="28-9C">LORHANNY CAVALCANTE SANTOS</option>
+                            <option value="29-9C">MANUELLA LELIS DA SILVA SIMAO</option>
+                            <option value="33-9C">MONALISA DOS SANTOS BALDUINO</option>
+                            <option value="34-9C">NATHAN SANTANA MONTEMOR</option>
+                            <option value="35-9C">NICOLAS PYETRO CASTRO DE ALMEIDA SOUZA</option>
+                            <option value="36-9C">NICOLLAS JHAMAL DA SILVA ALVES</option>
+                            <option value="37-9C">SARAH SILVA ROGER</option>
+                            <option value="38-9C">SERGIO RICARDO SILVA DE SOUZA</option>
+                            <option value="40-9C">VINICIUS COSTA SILVA</option>
+                            <option value="41-9C">VITÓRIA SILVA VIEIRA</option>
+                            <option value="42-9C">FELIPE RITIELLI NEVES DA SILVA</option>
+                            <option value="43-9C">JAQUELYNE PEREIRA GONCALVES</option>
+                            <option value="44-9C">KRYSTOFER LEITE DA SILVA</option>
+                        </optgroup>
+                    </select>
+                </div>
+                
+                <div class="info-item">
+                    <label><i class="fas fa-graduation-cap"></i> Série:</label>
+                    <select id="student-class" disabled>
+                        <option value="">Selecione a série</option>
+                        <option value="9A">9ºA</option>
+                        <option value="9B">9ºB</option>
+                        <option value="9C">9ºC</option>
+                    </select>
+                </div>
+                
+                <div class="info-item">
+                    <label><i class="fas fa-hashtag"></i> Nº:</label>
+                    <input type="text" id="student-number" disabled>
+                </div>
+                
+                <div class="info-item">
+                    <label><i class="fas fa-calendar"></i> DATA:</label>
+                    <input type="text" id="student-date" readonly>
+                </div>
+            </div>
+        </div>
+        
+        <div class="activity-title">ATIVIDADE DE CIÊNCIAS - LEIS DE MENDEL E HEREDOGRAMAS</div>
+        
+        <div class="instructions">
+            <h3><i class="fas fa-info-circle"></i> Instruções:</h3>
+            <p>Para cada questão, arraste os alelos para os quadros de Punnett para formar os genótipos. As células ficarão azuis para combinações corretas e vermelhas para incorretas. Após completar o quadro, marque a alternativa correta com base nos fenótipos resultantes.</p>
+            <p><strong>Novo:</strong> Agora você pode remover alelos do quadro arrastando-os de volta para a área de pool!</p>
+        </div>
+        
+        <div class="questions-container">
+            <!-- Questão 1 -->
+            <div class="question" id="question-1">
+                <div class="question-number">1. Em uma espécie vegetal, a cor das flores é determinada por um gene com dominância incompleta. O alelo A (vermelho) e o alelo a (branco) produzem flores rosas quando em heterozigose. Se duas plantas de flores rosas são cruzadas, qual a proporção fenotípica esperada?</div>
+                
+                <div class="punnett-interactive">
+                    <div class="allele-pool" id="pool-1">
+                        <div class="allele" draggable="true" data-allele="A">A</div>
+                        <div class="allele" draggable="true" data-allele="a">a</div>
+                    </div>
+                    <table class="punnett-square">
+                        <tr>
+                            <th></th>
+                            <th><div class="drop-zone" data-gamete="col" id="gamete-col-1"></div></th>
+                            <th><div class="drop-zone" data-gamete="col" id="gamete-col-2"></div></th>
+                        </tr>
+                        <tr>
+                            <th><div class="drop-zone" data-gamete="row" id="gamete-row-1"></div></th>
+                            <td><div class="drop-zone" data-cell="1-1"></div></td>
+                            <td><div class="drop-zone" data-cell="1-2"></div></td>
+                        </tr>
+                        <tr>
+                            <th><div class="drop-zone" data-gamete="row" id="gamete-row-2"></div></th>
+                            <td><div class="drop-zone" data-cell="2-1"></div></td>
+                            <td><div class="drop-zone" data-cell="2-2"></div></td>
+                        </tr>
+                    </table>
+                    <button class="reset-btn" onclick="resetQuestion(1)"><i class="fas fa-redo"></i> Reiniciar Quadro</button>
+                    <div class="phenotype-display" id="phenotype-display-1">Fenótipos: Aguardando combinações...</div>
+                </div>
+                
+                <div class="options">
+                    <label><input type="radio" name="q1" value="a"> a) 100% rosas</label>
+                    <label><input type="radio" name="q1" value="b"> b) 50% vermelhas, 50% brancas</label>
+                    <label><input type="radio" name="q1" value="c"> c) 25% vermelhas, 50% rosas, 25% brancas</label>
+                    <label><input type="radio" name="q1" value="d"> d) 75% vermelhas, 25% brancas</label>
+                </div>
+            </div>
+            
+            <!-- Questão 2 -->
+            <div class="question" id="question-2">
+                <div class="question-number">2. O heredograma abaixo mostra a herança de albinismo (recessivo autossômico) em uma família. Qual a probabilidade do casal III-1 e III-2 terem uma criança albina?</div>
+                <div class="heredogram">
+                    I      □───■
+                           │
+                    II     □───□
+                           │   │
+                    III    □   □───○
+                </div>
+                <div class="options">
+                    <label><input type="radio" name="q2" value="a"> a) 0%</label>
+                    <label><input type="radio" name="q2" value="b"> b) 25%</label>
+                    <label><input type="radio" name="q2" value="c"> c) 50%</label>
+                    <label><input type="radio" name="q2" value="d"> d) 100%</label>
+                </div>
+            </div>
+            
+            <!-- Questão 3 -->
+            <div class="question" id="question-3">
+                <div class="question-number">3. Em uma espécie animal, a cor da pelagem é determinada por um gene com dois alelos: B (preto) e b (branco), com dominância completa. Um macho preto homozigoto é cruzado com uma fêmea branca. Qual será a proporção fenotípica na F1?</div>
+                
+                <div class="punnett-interactive">
+                    <div class="allele-pool" id="pool-3">
+                        <div class="allele" draggable="true" data-allele="B">B</div>
+                        <div class="allele" draggable="true" data-allele="b">b</div>
+                    </div>
+                    <table class="punnett-square">
+                        <tr>
+                            <th></th>
+                            <th><div class="drop-zone" data-gamete="col" id="gamete-col-3"></div></th>
+                            <th><div class="drop-zone" data-gamete="col" id="gamete-col-4"></div></th>
+                        </tr>
+                        <tr>
+                            <th><div class="drop-zone" data-gamete="row" id="gamete-row-3"></div></th>
+                            <td><div class="drop-zone" data-cell="3-1"></div></td>
+                            <td><div class="drop-zone" data-cell="3-2"></div></td>
+                        </tr>
+                        <tr>
+                            <th><div class="drop-zone" data-gamete="row" id="gamete-row-4"></div></th>
+                            <td><div class="drop-zone" data-cell="4-1"></div></td>
+                            <td><div class="drop-zone" data-cell="4-2"></div></td>
+                        </tr>
+                    </table>
+                    <button class="reset-btn" onclick="resetQuestion(3)"><i class="fas fa-redo"></i> Reiniciar Quadro</button>
+                    <div class="phenotype-display" id="phenotype-display-3">Fenótipos: Aguardando combinações...</div>
+                </div>
+                
+                <div class="options">
+                    <label><input type="radio" name="q3" value="a"> a) 100% pretos</label>
+                    <label><input type="radio" name="q3" value="b"> b) 100% brancos</label>
+                    <label><input type="radio" name="q3" value="c"> c) 50% pretos, 50% brancos</label>
+                    <label><input type="radio" name="q3" value="d"> d) 75% pretos, 25% brancos</label>
+                </div>
+            </div>
+            
+            <!-- Questão 4 -->
+            <div class="question" id="question-4">
+                <div class="question-number">4. Analise o heredograma abaixo, que mostra a herança de uma doença genética rara. Qual é o padrão de herança mais provável?</div>
+                <div class="heredogram">
+                    I      □───●
+                           │
+                    II     □───■
+                           │   │
+                    III    ○   □───■
+                </div>
+                <div class="options">
+                    <label><input type="radio" name="q4" value="a"> a) Autossômico dominante</label>
+                    <label><input type="radio" name="q4" value="b"> b) Autossômico recessivo</label>
+                    <label><input type="radio" name="q4" value="c"> c) Ligado ao X dominante</label>
+                    <label><input type="radio" name="q4" value="d"> d) Ligado ao X recessivo</label>
+                </div>
+            </div>
+            
+            <!-- Questão 5 -->
+            <div class="question" id="question-5">
+                <div class="question-number">5. Em uma planta, a altura é determinada por um gene com dois alelos: T (alto) e t (baixo), com dominância completa. Duas plantas heterozigotas são cruzadas. Qual a proporção genotípica esperada?</div>
+                
+                <div class="punnett-interactive">
+                    <div class="allele-pool" id="pool-5">
+                        <div class="allele" draggable="true" data-allele="T">T</div>
+                        <div class="allele" draggable="true" data-allele="t">t</div>
+                    </div>
+                    <table class="punnett-square">
+                        <tr>
+                            <th></th>
+                            <th><div class="drop-zone" data-gamete="col" id="gamete-col-5"></div></th>
+                            <th><div class="drop-zone" data-gamete="col" id="gamete-col-6"></div></th>
+                        </tr>
+                        <tr>
+                            <th><div class="drop-zone" data-gamete="row" id="gamete-row-5"></div></th>
+                            <td><div class="drop-zone" data-cell="5-1"></div></td>
+                            <td><div class="drop-zone" data-cell="5-2"></div></td>
+                        </tr>
+                        <tr>
+                            <th><div class="drop-zone" data-gamete="row" id="gamete-row-6"></div></th>
+                            <td><div class="drop-zone" data-cell="6-1"></div></td>
+                            <td><div class="drop-zone" data-cell="6-2"></div></td>
+                        </tr>
+                    </table>
+                    <button class="reset-btn" onclick="resetQuestion(5)"><i class="fas fa-redo"></i> Reiniciar Quadro</button>
+                    <div class="phenotype-display" id="phenotype-display-5">Fenótipos: Aguardando combinações...</div>
+                </div>
+                
+                <div class="options">
+                    <label><input type="radio" name="q5" value="a"> a) 100% Tt</label>
+                    <label><input type="radio" name="q5" value="b"> b) 1 TT : 2 Tt : 1 tt</label>
+                    <label><input type="radio" name="q5" value="c"> c) 3 TT : 1 tt</label>
+                    <label><input type="radio" name="q5" value="d"> d) 1 TT : 1 tt</label>
+                </div>
+            </div>
+            
+            <!-- Mais questões seguindo o mesmo padrão -->
+            <div class="question" id="question-6">
+                <div class="question-number">6. O heredograma abaixo mostra a herança de daltonismo (ligado ao X recessivo). Qual a probabilidade do casal II-3 e II-4 terem uma filha daltônica?</div>
+                <div class="heredogram">
+                    I      □───■
+                           │
+                    II     ●   □───■
+                </div>
+                <div class="options">
+                    <label><input type="radio" name="q6" value="a"> a) 0%</label>
+                    <label><input type="radio" name="q6" value="b"> b) 25%</label>
+                    <label><input type="radio" name="q6" value="c"> c) 50%</label>
+                    <label><input type="radio" name="q6" value="d"> d) 100%</label>
+                </div>
+            </div>
+            
+            <div class="question" id="question-7">
+                <div class="question-number">7. Em uma espécie de inseto, a cor das asas é determinada por dois genes independentes (segunda lei de Mendel). O gene A determina asas pretas (dominante) e o gene B determina asas com manchas (dominante). Dois insetos duplo heterozigotos são cruzados. Qual a proporção fenotípica esperada?</div>
+                
+                <div class="punnett-interactive">
+                    <div class="allele-pool" id="pool-7">
+                        <div class="allele" draggable="true" data-allele="A">A</div>
+                        <div class="allele" draggable="true" data-allele="a">a</div>
+                        <div class="allele" draggable="true" data-allele="B">B</div>
+                        <div class="allele" draggable="true" data-allele="b">b</div>
+                    </div>
+                    <table class="punnett-square">
+                        <tr>
+                            <th></th>
+                            <th><div class="drop-zone" data-gamete="col" id="gamete-col-7"></div></th>
+                            <th><div class="drop-zone" data-gamete="col" id="gamete-col-8"></div></th>
+                            <th><div class="drop-zone" data-gamete="col" id="gamete-col-9"></div></th>
+                            <th><div class="drop-zone" data-gamete="col" id="gamete-col-10"></div></th>
+                        </tr>
+                        <tr>
+                            <th><div class="drop-zone" data-gamete="row" id="gamete-row-7"></div></th>
+                            <td><div class="drop-zone" data-cell="7-1"></div></td>
+                            <td><div class="drop-zone" data-cell="7-2"></div></td>
+                            <td><div class="drop-zone" data-cell="7-3"></div></td>
+                            <td><div class="drop-zone" data-cell="7-4"></div></td>
+                        </tr>
+                        <tr>
+                            <th><div class="drop-zone" data-gamete="row" id="gamete-row-8"></div></th>
+                            <td><div class="drop-zone" data-cell="8-1"></div></td>
+                            <td><div class="drop-zone" data-cell="8-2"></div></td>
+                            <td><div class="drop-zone" data-cell="8-3"></div></td>
+                            <td><div class="drop-zone" data-cell="8-4"></div></td>
+                        </tr>
+                        <tr>
+                            <th><div class="drop-zone" data-gamete="row" id="gamete-row-9"></div></th>
+                            <td><div class="drop-zone" data-cell="9-1"></div></td>
+                            <td><div class="drop-zone" data-cell="9-2"></div></td>
+                            <td><div class="drop-zone" data-cell="9-3"></div></td>
+                            <td><div class="drop-zone" data-cell="9-4"></div></td>
+                        </tr>
+                        <tr>
+                            <th><div class="drop-zone" data-gamete="row" id="gamete-row-10"></div></th>
+                            <td><div class="drop-zone" data-cell="10-1"></div></td>
+                            <td><div class="drop-zone" data-cell="10-2"></div></td>
+                            <td><div class="drop-zone" data-cell="10-3"></div></td>
+                            <td><div class="drop-zone" data-cell="10-4"></div></td>
+                        </tr>
+                    </table>
+                    <button class="reset-btn" onclick="resetQuestion(7)"><i class="fas fa-redo"></i> Reiniciar Quadro</button>
+                    <div class="phenotype-display" id="phenotype-display-7">Fenótipos: Aguardando combinações...</div>
+                </div>
+                
+                <div class="options">
+                    <label><input type="radio" name="q7" value="a"> a) 9:3:3:1</label>
+                    <label><input type="radio" name="q7" value="b"> b) 1:1:1:1</label>
+                    <label><input type="radio" name="q7" value="c"> c) 3:1</label>
+                    <label><input type="radio" name="q7" value="d"> d) 9:7</label>
+                </div>
+            </div>
+            
+            <!-- Questão 8 (com quadro de Punnett) -->
+            <div class="question" id="question-8">
+                <div class="question-number">8. Em uma família, o pai tem grupo sanguíneo AB e a mãe tem grupo sanguíneo O. Quais os possíveis grupos sanguíneos dos filhos?</div>
+                
+                <div class="punnett-interactive">
+                    <div class="allele-pool" id="pool-8">
+                        <div class="allele" draggable="true" data-allele="A">A</div>
+                        <div class="allele" draggable="true" data-allele="B">B</div>
+                        <div class="allele" draggable="true" data-allele="O">O</div>
+                    </div>
+                    <table class="punnett-square">
+                        <tr>
+                            <th></th>
+                            <th><div class="drop-zone" data-gamete="col" id="gamete-col-8-1"></div></th>
+                            <th><div class="drop-zone" data-gamete="col" id="gamete-col-8-2"></div></th>
+                        </tr>
+                        <tr>
+                            <th><div class="drop-zone" data-gamete="row" id="gamete-row-8-1"></div></th>
+                            <td><div class="drop-zone" data-cell="8-1"></div></td>
+                            <td><div class="drop-zone" data-cell="8-2"></div></td>
+                        </tr>
+                        <tr>
+                            <th><div class="drop-zone" data-gamete="row" id="gamete-row-8-2"></div></th>
+                            <td><div class="drop-zone" data-cell="8-3"></div></td>
+                            <td><div class="drop-zone" data-cell="8-4"></div></td>
+                        </tr>
+                    </table>
+                    <button class="reset-btn" onclick="resetQuestion(8)"><i class="fas fa-redo"></i> Reiniciar Quadro</button>
+                    <div class="phenotype-display" id="phenotype-display-8">Fenótipos: Aguardando combinações...</div>
+                </div>
+                
+                <div class="options">
+                    <label><input type="radio" name="q8" value="a"> a) A ou B</label>
+                    <label><input type="radio" name="q8" value="b"> b) AB ou O</label>
+                    <label><input type="radio" name="q8" value="c"> c) A, B ou O</label>
+                    <label><input type="radio" name="q8" value="d"> d) A ou B, mas não AB ou O</label>
+                </div>
+            </div>
+            
+            <!-- Questões 9-10 -->
+            <div class="question" id="question-9">
+                <div class="question-number">9. O heredograma abaixo mostra a herança de uma característica rara. Qual a probabilidade do indivíduo IV-1 ser portador do alelo recessivo?</div>
+                <div class="heredogram">
+                    I      □───■
+                           │
+                    II     □───□
+                           │   │
+                    III    ○   □───■
+                           │
+                    IV     ○
+                </div>
+                <div class="options">
+                    <label><input type="radio" name="q9" value="a"> a) 0%</label>
+                    <label><input type="radio" name="q9" value="b"> b) 25%</label>
+                    <label><input type="radio" name="q9" value="c"> c) 50%</label>
+                    <label><input type="radio" name="q9" value="d"> d) 100%</label>
+                </div>
+            </div>
+            
+            <div class="question" id="question-10">
+                <div class="question-number">10. Em uma espécie de planta, a cor das flores é determinada por um gene com dominância incompleta e a textura das folhas por outro gene independente. Qual a proporção fenotípica esperada do cruzamento entre dois duplo heterozigotos?</div>
+                <div class="options">
+                    <label><input type="radio" name="q10" value="a"> a) 9:3:3:1</label>
+                    <label><input type="radio" name="q10" value="b"> b) 1:1:1:1</label>
+                    <label><input type="radio" name="q10" value="c"> c) 3:1</label>
+                    <label><input type="radio" name="q10" value="d"> d) 1:2:1</label>
+                </div>
+            </div>
+        </div>
+        
+        <div class="submit-container">
+            <button class="submit-btn" onclick="submitAnswers()"><i class="fas fa-paper-plane"></i> Enviar Respostas</button>
+        </div>
+        
+        <div class="footer">
+            Atividade de Ciências - 1ª e 2ª Leis de Mendel | E.E. PROFª WANDA MASCAGNI DE SÁ
+        </div>
+    </div>
+    
+    <div class="success-message" id="success-message">
+        <i class="fas fa-check-circle"></i> Respostas enviadas com sucesso!
+    </div>
+
+    <script>
+        // Preencher informações do aluno
+        function fillStudentInfo() {
+            const studentSelect = document.getElementById('student-name');
+            const selectedValue = studentSelect.value;
+            
+            if (selectedValue) {
+                const [number, classCode] = selectedValue.split('-');
+                document.getElementById('student-number').value = number;
+                
+                const classSelect = document.getElementById('student-class');
+                classSelect.value = classCode;
+                classSelect.disabled = false;
+            }
+        }
+
+        // Configurar data atual
+        const today = new Date();
+        document.getElementById('student-date').value = today.toLocaleDateString('pt-BR');
+        
+        // Drag and drop
+        let draggedAllele = null;
+        
+        document.addEventListener('dragstart', function(event) {
+            if (event.target.classList.contains('allele')) {
+                draggedAllele = event.target;
+                event.dataTransfer.setData('text/plain', event.target.dataset.allele);
+                setTimeout(() => event.target.style.opacity = '0.4', 0);
+            }
+        });
+        
+        document.addEventListener('dragend', function(event) {
+            if (event.target.classList.contains('allele')) {
+                event.target.style.opacity = '1';
+            }
+        });
+        
+        document.addEventListener('dragover', function(event) {
+            if (event.target.classList.contains('drop-zone') || event.target.classList.contains('allele-pool')) {
+                event.preventDefault();
+                if (event.target.classList.contains('drop-zone')) {
+                    event.target.classList.add('highlight');
+                }
+            }
+        });
+        
+        document.addEventListener('dragleave', function(event) {
+            if (event.target.classList.contains('drop-zone')) {
+                event.target.classList.remove('highlight');
+            }
+        });
+        
+        document.addEventListener('drop', function(event) {
+            // Permitir soltar na área de pool ou em drop-zones
+            if (event.target.classList.contains('drop-zone') || event.target.classList.contains('allele-pool')) {
+                event.preventDefault();
+                
+                if (event.target.classList.contains('drop-zone')) {
+                    event.target.classList.remove('highlight');
+                }
+                
+                const allele = event.dataTransfer.getData('text/plain');
+                
+                if (draggedAllele) {
+                    // Se soltando na área de pool, apenas anexar o alelo
+                    if (event.target.classList.contains('allele-pool')) {
+                        event.target.appendChild(draggedAllele);
+                    } 
+                    // Se soltando em uma célula ou gameta
+                    else if (event.target.classList.contains('drop-zone')) {
+                        // Se é uma célula de genótipo: pode ter dois alelos
+                        if (event.target.dataset.cell) {
+                            // Se já tem um alelo, formar genótipo
+                            if (event.target.children.length > 0) {
+                                const existingAllele = event.target.querySelector('.allele').dataset.allele;
+                                const newGenotype = existingAllele + allele;
+                                event.target.innerHTML = `<div class="genotype-display">${newGenotype}</div>`;
+                                
+                                // Validar o genótipo
+                                validateGenotype(event.target, newGenotype);
+                            } 
+                            // Se está vazio, apenas adicionar o alelo
+                            else {
+                                event.target.appendChild(draggedAllele);
+                            }
+                        } 
+                        // Se é um gameta, substituir qualquer conteúdo existente
+                        else {
+                            event.target.innerHTML = '';
+                            event.target.appendChild(draggedAllele);
+                        }
+                    }
+                }
+            }
+        });
+        
+        function validateGenotype(cell, genotype) {
+            // Determinar qual questão estamos validando
+            const questionId = cell.closest('.question').id.split('-')[1];
+            let validGenotypes = [];
+            
+            // Definir genótipos válidos para cada questão
+            switch(questionId) {
+                case '1': // Questão 1: cruzamento Aa x Aa
+                    validGenotypes = ['AA', 'Aa', 'aA', 'aa'];
+                    break;
+                case '3': // Questão 3: BB x bb
+                    validGenotypes = ['BB', 'Bb', 'bB', 'bb'];
+                    break;
+                case '5': // Questão 5: Tt x Tt
+                    validGenotypes = ['TT', 'Tt', 'tT', 'tt'];
+                    break;
+                case '7': // Questão 7: di-hibridismo
+                    // Aceita qualquer combinação de dois alelos
+                    return; // Não validar para questão complexa
+                case '8': // Questão 8: grupos sanguíneos
+                    validGenotypes = ['AO', 'OA', 'BO', 'OB'];
+                    break;
+            }
+            
+            if (validGenotypes.includes(genotype)) {
+                cell.classList.add('correct');
+                cell.classList.remove('incorrect');
+            } else {
+                cell.classList.add('incorrect');
+                cell.classList.remove('correct');
+            }
+            
+            // Atualizar a exibição de fenótipos
+            updatePhenotypeDisplay(questionId);
+        }
+        
+        function updatePhenotypeDisplay(questionId) {
+            const phenotypeDisplay = document.getElementById(`phenotype-display-${questionId}`);
+            if (!phenotypeDisplay) return;
+            
+            phenotypeDisplay.innerHTML = '<strong>Fenótipos:</strong> ';
+            
+            // Contar genótipos
+            const genotypes = {};
+            
+            document.querySelectorAll(`#question-${questionId} [data-cell]`).forEach(cell => {
+                const genotypeDiv = cell.querySelector('.genotype-display');
+                if (genotypeDiv) {
+                    const genotype = genotypeDiv.textContent;
+                    genotypes[genotype] = (genotypes[genotype] || 0) + 1;
+                }
+            });
+            
+            // Calcular fenótipos baseado na questão
+            switch(questionId) {
+                case '1': // Flores: AA=vermelho, Aa=rosa, aa=branco
+                    const red = (genotypes['AA'] || 0);
+                    const pink = (genotypes['Aa'] || 0) + (genotypes['aA'] || 0);
+                    const white = (genotypes['aa'] || 0);
+                    phenotypeDisplay.innerHTML += `Vermelhas: ${red}, Cor-de-rosa: ${pink}, Brancas: ${white}`;
+                    break;
+                    
+                case '3': // Pelagem: BB e Bb=preto, bb=branco
+                    const black = (genotypes['BB'] || 0) + (genotypes['Bb'] || 0) + (genotypes['bB'] || 0);
+                    const whiteFur = (genotypes['bb'] || 0);
+                    phenotypeDisplay.innerHTML += `Pretos: ${black}, Brancos: ${whiteFur}`;
+                    break;
+                    
+                case '5': // Plantas: TT e Tt=alto, tt=baixo
+                    const tall = (genotypes['TT'] || 0) + (genotypes['Tt'] || 0) + (genotypes['tT'] || 0);
+                    const short = (genotypes['tt'] || 0);
+                    phenotypeDisplay.innerHTML += `Altas: ${tall}, Baixas: ${short}`;
+                    break;
+                    
+                case '8': // Sangue: AO=A, BO=B
+                    const groupA = (genotypes['AO'] || 0) + (genotypes['OA'] || 0);
+                    const groupB = (genotypes['BO'] || 0) + (genotypes['OB'] || 0);
+                    phenotypeDisplay.innerHTML += `Grupo A: ${groupA}, Grupo B: ${groupB}`;
+                    break;
+            }
+        }
+        
+        // Função para reiniciar uma questão específica
+        function resetQuestion(questionId) {
+            const pool = document.getElementById(`pool-${questionId}`);
+            const questionDiv = document.getElementById(`question-${questionId}`);
+            
+            // Remover todos os alelos das células e gametas
+            questionDiv.querySelectorAll('.drop-zone').forEach(zone => {
+                zone.innerHTML = '';
+                zone.classList.remove('correct', 'incorrect');
+            });
+            
+            // Recolocar todos os alelos no pool
+            const alleles = questionDiv.querySelectorAll('.allele');
+            alleles.forEach(allele => {
+                pool.appendChild(allele);
+            });
+            
+            // Resetar o display de fenótipos
+            const phenotypeDisplay = document.getElementById(`phenotype-display-${questionId}`);
+            if (phenotypeDisplay) {
+                phenotypeDisplay.innerHTML = 'Fenótipos: Aguardando combinações...';
+            }
+        }
+        
+        // Enviar respostas
+        function submitAnswers() {
+            const studentName = document.getElementById('student-name').value;
+            const studentClass = document.getElementById('student-class').value;
+            const studentNumber = document.getElementById('student-number').value;
+            const date = document.getElementById('student-date').value;
+            
+            if (!studentName || !studentClass || !studentNumber || !date) {
+                alert('Por favor, preencha todas as informações do aluno antes de enviar.');
+                return;
+            }
+            
+            // Coletar respostas
+            const answers = {};
+            for (let i = 1; i <= 10; i++) {
+                const selectedOption = document.querySelector(`input[name="q${i}"]:checked`);
+                answers[`q${i}`] = selectedOption ? selectedOption.value : '';
+            }
+            
+            // Calcular nota (simulação)
+            const correctAnswers = {
+                q1: 'c',
+                q2: 'b',
+                q3: 'a',
+                q4: 'd',
+                q5: 'b',
+                q6: 'a',
+                q7: 'a',
+                q8: 'a',
+                q9: 'c',
+                q10: 'a'
+            };
+            
+            let score = 0;
+            for (const [question, answer] of Object.entries(answers)) {
+                if (answer === correctAnswers[question]) {
+                    score += 1;
+                }
+            }
+            
+            // Enviar para o Google Sheets
+            sendToGoogleSheets({
+                name: document.getElementById('student-name').options[document.getElementById('student-name').selectedIndex].text,
+                class: studentClass,
+                number: studentNumber,
+                date: date,
+                score: score,
+                answers: answers
+            });
+        }
+        
+        function sendToGoogleSheets(data) {
+            // ID da planilha e configurações
+            const spreadsheetId = "1cw_3Kifufgt42yHsPea3pU_rw8QMgxhqmZY71P8byG4";
+            const sheetName = data.class === "9A" ? "9ºANO A" : data.class === "9B" ? "9ºANO B" : "9ºANO C";
+            
+            // Simulação de envio
+            console.log('Dados enviados para o Google Sheets:', {
+                spreadsheetId: spreadsheetId,
+                sheetName: sheetName,
+                data: data
+            });
+            
+            // Mostrar mensagem de sucesso
+            const successMessage = document.getElementById('success-message');
+            successMessage.style.display = 'block';
+            
+            // Ocultar a mensagem após 3 segundos
+            setTimeout(() => {
+                successMessage.style.display = 'none';
+            }, 3000);
+        }
+        
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', function() {
+            // Preencher data atual
+            document.getElementById('student-date').value = today.toLocaleDateString('pt-BR');
+        });
+    </script>
+</body>
+</html>
